@@ -36,7 +36,14 @@ header {
     }
 
     @media (max-width: 870px) {
-        padding-left: 30px;
+
+        padding: 30px 10px 0px 10px;
+
+        img {
+            max-width: 150px;
+            padding-left: 30px;
+        }
+
         
         nav.desktop-nav {
             display: none; /* Ховати звичайне меню */
@@ -107,7 +114,6 @@ header {
     position: fixed;                  
     top: 0;                          
     left: 0;                         
-    width: 70%;                      
     height: 100%;      
     border-color: #2889de;              
     background: linear-gradient(to right, rgb(255, 255, 255), #fffbfb); 
@@ -116,7 +122,7 @@ header {
     transform: translateX(-100%);   
     transition: transform 0.5s ease; 
     z-index: 10;                    
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Тінь для попапу */
+    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
     border-radius: 0px 10px 10px 0px; /* Закруглені краї */
 }
 
@@ -141,8 +147,7 @@ header {
 }
 
 #menu li:hover {
-    color: #b0b2b6;                 /* Зміна кольору при наведенні */
-    text-shadow: 0 0 5px rgba(14, 27, 143, 0.7); /* Тінь тексту при наведенні */
+    color: #000000;                 /* Зміна кольору при наведенні */
 }
 
 /* Для показу попапу при активному чекбоксі */
