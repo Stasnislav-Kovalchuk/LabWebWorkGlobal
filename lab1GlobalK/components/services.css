@@ -1,0 +1,158 @@
+.services {
+    padding: 0px 30px 0px 30px;
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    justify-items: center;
+    align-items: start;
+}
+
+
+.service {
+    background-color: white;
+    border-radius: 20px;
+    padding: 39px;
+    text-align: center;
+    height: 350px;
+    width: 350px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover{
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.service img {
+    /* width: 80px;
+    margin-bottom: 15px;
+    float: left; */
+    padding-top: 20px;
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;  /* Прижимає вміст до лівого краю */
+    flex-direction: row;  
+    margin-bottom: 20px;
+}
+
+.service h3 {
+    text-align: left;
+    color: #000;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 233%;
+}
+
+.service p {
+    text-align: left;
+    color: #7D7987;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 175%;
+}
+
+
+
+
+.learn-more {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.learn-more button {
+    cursor: pointer;
+    border-radius: 55px;
+    border: 1px solid #458FF6;
+    width: 200px;
+    height: 60px;
+    font-weight: 700;
+    color: #458FF6;
+    font-size: 18px;
+    background-color: #ffffff;
+    font-weight: 700;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0px 10px 100px rgb(4, 98, 250); /* Тінь при наведенні */
+    }
+}
+
+
+/* Для планшетів (максимум 768px ширина) */
+@media (max-width: 768px) {
+    .services {
+        grid-template-columns: repeat(2, 1fr); /* Дві колонки */
+        padding: 0px 15px; /* Зменшимо відступи */
+        gap: 20px; /* Зменшимо простір між елементами */
+    }
+    .service {
+        width: 100%; /* Повна ширина елемента */
+        height: auto; /* Нехай висота блоку адаптується */
+    }
+}
+
+/* Для мобільних телефонів (максимум 480px ширина) */
+/* @media (max-width: 480px) {
+    .services {
+        grid-template-columns: 1fr; 
+    }
+    .service {
+        width: 100%; 
+        padding: 20px; 
+    }
+}
+
+
+@media (max-width: 768px) {
+    .service h3 {
+        font-size: 20px; 
+        line-height: 1.4;
+    }
+
+    .service p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .learn-more button {
+        width: 180px; 
+        height: 50px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .service h3 {
+        font-size: 18px; 
+    }
+
+    .service p {
+        font-size: 13px;
+    }
+
+    .learn-more button {
+        width: 160px;
+        height: 45px;
+        font-size: 14px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .service img {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .service h3, .service p {
+        text-align: center; 
+    }
+} */
