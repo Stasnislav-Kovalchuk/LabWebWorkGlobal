@@ -46,7 +46,7 @@
     line-height: 167%;
 }
   
-.bubble {
+/* .bubble {
     position: absolute;
     top: 100px;
     left: 0px;
@@ -81,20 +81,23 @@
     background-image: url('../assets/little_dots.svg');
     background-size: cover; 
     z-index: -1;
-}
+} */
 
-@media (max-width: 1300px){
+@media (max-width: 1200px){
   
     .bubble {
         display: none;
+        /* align-items: center; */
     }
 
     .second_dot {
         display: none;
+        /* align-items: center; */
     }
 
     .dot {
         display: none;
+        /* align-items: center; */
     }
 
 

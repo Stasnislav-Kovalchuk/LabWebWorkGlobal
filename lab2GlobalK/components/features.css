@@ -63,6 +63,7 @@
 @media (max-width: 768px) {
     .features {
         padding: 100px 20px;
+        padding-bottom: 20px;
         flex-direction: column-reverse;
         text-align: center;
         gap: 50px;

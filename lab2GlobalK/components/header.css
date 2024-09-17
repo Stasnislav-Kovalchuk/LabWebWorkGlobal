@@ -21,7 +21,11 @@ header {
             font-weight: 400;
 
             &:hover {
-                color: rgb(0, 0, 0);
+                color: rgb(39, 41, 75);
+                /* font-weight: 700; */
+                text-decoration: underline;
+                
+
             }
 
             span {
@@ -37,7 +41,7 @@ header {
 
     @media (max-width: 870px) {
 
-        padding: 30px 10px 0px 10px;
+        padding: 30px 20px 0px 10px;
 
         img {
             max-width: 150px;
@@ -56,12 +60,12 @@ header {
 }
 
 #popup-menu a {
-    text-decoration: none; /* Прибрати підкреслення */
-    color: #ffffff; /* Колір тексту */
+    text-decoration: none; 
+    color: #ffffff; 
 }
 
 #popup-menu a:hover {
-    color: #ffcc00; /* Колір тексту при наведенні */
+    color: #ffcc00; 
 }
 
 

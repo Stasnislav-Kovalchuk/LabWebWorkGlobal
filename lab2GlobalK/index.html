@@ -1,20 +1,20 @@
-<!-- Розібратись з абсолютами хедером і футером -->
-<!-- Також адаптація тексту під малі телефони -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- <link rel="stylesheet" href="xxx.css"> -->
+    <link rel="icon" type="image/x-icon" href="/assets/star.svg">
+    <!-- Підключення глобальних стилів -->
     <link rel="stylesheet" href="components/global.css">
+    <!-- Підключення Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200..1000&display=swap" rel="stylesheet">
+    <!-- Підключення стилів AOS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" />
 </head>
 <body>
 
-    
     <header>
         <a href="/"><img src="assets/logo.svg" alt="logo" /></a>
         <nav class="desktop-nav"> 
@@ -42,95 +42,99 @@
             </div>
         </nav>
     </header>
-    
-    <main>
-        <section class="heroSection">
-            <div class="dots"></div>
 
-            <div class="qwerty">
+    <main>
+        <!-- Hero Section -->
+        <section class="heroSection" data-aos="fade-up">
+            <div class="dots" data-aos="fade-up"></div>
+            <div class="qwerty" data-aos="fade-up">
                 <h2>Virtual healthcare for you</h2>
                 <h3>Trafalgar provides progressive, and affordable healthcare, accessible on mobile and online for everyone</h3>
-                <div">
+                <div>
                     <a href="#" class="consult-button">Consult today</a>
                 </div>
             </div>
-            <img src="assets/hero-section-photo.svg" alt="Hero section image"/>
+            <img src="assets/hero-section-photo.svg" alt="Hero section image" data-aos="fade-up"/>
         </section>
 
-        <section class="features">
-            <img src="assets/section-2.svg" alt="photo">
-            <div class="feature-info">
+        <!-- Features Section -->
+        <section class="features" data-aos="fade-up">
+            <img src="assets/section-2.svg" alt="photo" data-aos="fade-right">
+            <div class="feature-info" data-aos="fade-up">
                 <h2>Leading healthcare <br/> providers</h2>
-                <img src="assets/linr.svg" alt=logo"/>
-                <h3> Trafalgar provides progressive, and affordable healthcare, accessible on mobile and online for everyone. To us, its not just work. We take pride 
-                    in the solutions we deliver</h3>
-        
+                <img src="assets/linr.svg" alt="logo" data-aos="zoom-in"/>
+                <h3>Trafalgar provides progressive, and affordable healthcare, accessible on mobile and online for everyone. To us, its not just work. We take pride 
+                    in the solutions we deliver.</h3>
                 <div class="learn-more">
                     <a href="#" class="button">Learn More</a>
                 </div>
-
             </div>
         </section>
 
-        <section class="testimonials-section">
+        <!-- Testimonials Section -->
+        <section class="testimonials-section" data-aos="fade-up">
             <h2 class="testimonials-heading">Our services</h2>
-            <img src="assets/linr.svg"alt="logo"/>
-            <p class="sup-descrip">We provide to you the best choiches for you. Adjust it to your health needs and make sure your undergo treatment with our highly qualified doctors you can consult with us which type of service is suitable for your health</p>
-            <div class="bubble"></div>
-            <div class="dot"> </div>
-            <div class="second_dot"></div>
-            <div class="services">
+            <img src="assets/linr.svg" alt="logo" data-aos="zoom-in"/>
+            <p class="sup-descrip" data-aos="fade-up">We provide to you the best choices for your health needs. Make sure to undergo treatment with our highly qualified doctors.</p>
 
-                <div class="service">
-                    <img src="assets/ser1.svg" alt="Search doctor">
+            <div class="services" data-aos="fade-up">
+                <div class="service" >
+                    <img src="assets/ser1.svg" alt="Search doctor"  >
                     <h3>Search doctor</h3>
-                    <p>Choose your doctor from thousands of specialist, general, and trusted hospitals.</p>
+                    <p>Choose from thousands of specialists, general practitioners, and trusted hospitals.
+                    </p>
                 </div>
-                <div class="service">
+                <div class="service" data-aos="fade-up">
                     <img src="assets/ser2.svg" alt="Online pharmacy">
                     <h3>Online pharmacy</h3>
-                    <p>Buy your medicines with our mobile application with a simple delivery system.</p>
+                    <p>Buy your medicines easily with our mobile app and fast delivery system.</p>
                 </div>
-                <div class="service">
+                <div class="service" data-aos="fade-up">
                     <img src="assets/ser3.svg" alt="Consultation">
                     <h3>Consultation</h3>
-                    <p>Free consultation with our trusted doctors and get the best recommendations.</p>
+                    <p>Get a free consultation from our trusted doctors with the best advice.</p>
                 </div>
-                <div class="service">
+                <div class="service" data-aos="fade-up">
                     <img src="assets/ser4.svg" alt="Details info">
                     <h3>Details info</h3>
-                    <p>Free consultation with our trusted doctors and get the best recommendations.</p>
+                    <p>Access detailed health information and personalized guidance from specialists.</p>
                 </div>
-                <div class="service">
+                <div class="service" data-aos="fade-up">
                     <img src="assets/ser5.svg" alt="Emergency care">
                     <h3>Emergency care</h3>
-                    <p>You can get 24/7 urgent care for yourself or your children and your lovely family.</p>
+                    <p>Receive 24/7 urgent care for you and your loved ones anytime.</p>
                 </div>
-                <div class="service">
+                <div class="service" data-aos="fade-up">
                     <img src="assets/ser6.svg" alt="Tracking">
                     <h3>Tracking</h3>
-                    <p>Track and save your medical history and health data and your lovely family..</p>
+                    <p>Easily track and save your medical history and health data with our system.</p>
                 </div>
-            </section>
-        
-            <div class="learn-more">
-                <a href="#" class="button">Learn more</a>
             </div>
-        
+            <div class="learn-more">
+                <a href="#" class="button" data-aos="fade-up">Learn More</a>
+            </div>
+        </section>
     </main>
+
     <footer class="footer">
-        <img class="dots_footer" src="assets/little_dots.svg" alt="photo"/>
-
-        <img src="assets/logo-footer.svg" alt="photo"/>
-        <nav> 
-            <a href="/"> Company</a>
-            <a href="/"> Region </a>
-            <a href="/"> Help </a>
+        <img class="dots_footer" src="assets/little_dots.svg" alt="dots"/>
+        <img src="assets/logo-footer.svg" alt="logo"/>
+        <nav>
+            <a href="/">Company</a>
+            <a href="/">Region</a>
+            <a href="/">Help</a>
         </nav>
+    </footer>    
 
-    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200, 
+            once: true 
+        });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@latest/bundle.min.js"></script>
-
     <script>
         const lenis = new Lenis()
 
@@ -141,6 +145,6 @@
 
         requestAnimationFrame(raf)
     </script>
-    
+
 </body>
 </html>
