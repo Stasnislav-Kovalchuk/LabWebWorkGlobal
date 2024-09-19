@@ -1,0 +1,403 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Mulish", system-ui;
+}
+
+
+body {
+    /* min-height: 100svh; */
+    height: fit-content;
+    background-color: #ffffff;
+}
+
+header {
+    padding: 26px 80px 0px 80px;    
+    display: flex;
+    /* row-gap: 24px; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    img{
+        cursor: pointer;
+    }
+
+    nav {
+        display: flex;
+        column-gap: 40px;
+
+        a {
+            text-decoration: none;
+            color: #4F5665;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            
+            &:hover {
+                color:  rgb(0, 0, 0);
+            }
+            
+            span {
+                font-weight: 700;
+                color:#0B132A
+            }
+        }
+
+        
+    }
+
+}
+
+.heroSection {
+    padding-top: 50px;
+    margin: auto;
+    display: flex;
+    gap: 90px;
+    display: flex;
+    justify-content: center; /* Вирівнювання по горизонталі */
+    align-items: center; /* Вирівнювання по вертикалі */
+    
+
+        img {
+            width: 45%;
+            height: auto;
+        }
+
+        div{
+            padding-top: 60px;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            max-width: 450px;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 116%;
+            color: #0B132A;
+
+            span {
+                font-weight: 700;
+            }
+            
+        }
+
+        h3 {
+            margin-bottom: 50px;
+            max-width: 450px;
+            font-size: 21px;
+            font-style: normal;
+            font-weight: 300;
+            color: #7D7987;
+            line-height: 152%;
+            
+
+
+        }
+
+        button {
+            cursor: pointer;
+            border-radius: 55px;
+            background: #458FF6;
+            border: none;
+            width: 200px;
+            height: 60px;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                box-shadow: 0px 10px 100px rgb(4, 98, 250); /* Тінь при наведенні */
+            }
+            
+        }
+
+        
+    .dots {
+        position: absolute;
+        top: 100px; /* Позиціонуйте точковий елемент */
+        left: -10px;
+        width: 80px;  /* Ширина елемента з точками */
+        height: 113px; /* Висота елемента з точками */
+        background-image: url('assets/bubbles.svg'); /* Додайте тут своє зображення з точками */
+        background-size: cover; /* Щоб зображення повністю покрило елемент */
+    }
+}
+
+
+
+.features {
+    padding: 100px 134px 142px 75px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+
+
+
+    
+        img:first-child {
+            width: 50%;
+            height: auto;         
+        }
+
+        h2 {
+            color: #000;
+            font-family: Mulish;
+            font-size: 36px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 155%;
+
+        }
+
+        img:last-child {
+            width: 45%;
+            height: auto;
+        }
+
+        h3 {
+            padding-top: 25px;
+            color: #7D7987;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 165%;
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 55px;
+            border: 1px solid #458FF6;
+            width: 200px;
+            height: 60px;
+            font-weight: 700;
+            color: #458FF6;
+            font-size: 18px;
+            background-color: #ffffff;
+            font-weight: 700;
+            outline: none;
+            
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                box-shadow: 0px 10px 100px rgb(4, 98, 250); /* Тінь при наведенні */
+            }
+            
+        }
+
+
+
+}
+
+.feature-info {
+    max-width: 40%;
+    padding-left: 10px;
+}
+
+
+/* .testimonials {
+  text-align: center;
+  padding: 40px;
+
+  .tables {
+    display: flex;
+    justify-content: space-evenly;
+    column-gap: 40px;
+
+  }
+
+}
+
+.testimonials h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.testimonials p {
+  color: #666;
+  margin-bottom: 30px;
+} */
+
+/* General Section Styles */
+.testimonials-section {
+    text-align: center;
+    padding: 50px;
+    position: relative;
+
+    h2{
+        color: #000;
+        max-width: 400px;
+        margin: auto;
+        text-align: center;
+        font-family: Mulish;
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 56px; /* 155.556% */ /* 142.857% */
+        margin-bottom: 25px;
+    }
+
+    img{
+        margin-bottom: 20px;
+    }
+
+    p {
+        color: #7D7987;
+        margin: auto;
+        max-width: 950px;
+        text-align: center;
+        font-family: Mulish;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 167%;
+    }
+
+  }
+  
+  
+.bubble {
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    width: 1200px;
+    aspect-ratio: 1.39;
+    background-size:contain ;
+    background-repeat: no-repeat;
+    background-image: url('assets/big-bubble.svg');
+    z-index: -1; 
+}
+
+
+.services {
+    padding: 0px 30px 0px 30px;
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    justify-items: center;
+    align-items: start;
+}
+
+
+.service {
+    background-color: white;
+    border-radius: 20px;
+    padding: 39px;
+    text-align: center;
+    height: 350px;
+    width: 350px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover{
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.service img {
+    /* width: 80px;
+    margin-bottom: 15px;
+    float: left; */
+    padding-top: 20px;
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;  /* Прижимає вміст до лівого краю */
+    flex-direction: row;  
+    margin-bottom: 20px;
+}
+
+.service h3 {
+    text-align: left;
+    color: #000;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 233%;
+}
+
+.service p {
+    text-align: left;
+    color: #7D7987;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 175%;
+}
+
+
+
+
+.learn-more {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.learn-more button {
+    cursor: pointer;
+    border-radius: 55px;
+    border: 1px solid #458FF6;
+    width: 200px;
+    height: 60px;
+    font-weight: 700;
+    color: #458FF6;
+    font-size: 18px;
+    background-color: #ffffff;
+    font-weight: 700;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0px 10px 100px rgb(4, 98, 250); /* Тінь при наведенні */
+    }
+}
+
+
+.footer{
+    margin-top: 200px;
+    background: linear-gradient(183deg, #67C3F3 -8.57%, #5A98F2 82.96%);
+    padding: 46px 87px 30px 87px;    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+        cursor: pointer;
+    }
+
+    nav {
+        display: flex;
+        column-gap: 177px;
+
+        a {
+            color: #FFF;
+            text-decoration: none;
+            font-family: Mulish;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 300%;
+            
+            &:hover {
+                color:  rgb(250, 242, 154);
+            }
+            
+            span {
+                font-weight: 700;
+                color:#0B132A
+            }
+        }
+
+        
+    }
+}
