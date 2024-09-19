@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative; /* Важливо для позиціонування dots_footer */
+    position: relative;
 
     img {
         cursor: pointer;
@@ -40,26 +40,27 @@
         padding: 20px;
 
         img {
-            margin-bottom: 20px; /* Відступ між логотипом і навігацією */
+            margin-bottom: 20px;
         }
 
         nav {
             display: flex;
             flex-direction: column;
             align-items: center;
-            row-gap: 10px; /* Відстань між пунктами меню */
+            row-gap: 10px; 
         }
     }
 }
 
 @media (max-width: 450px) {
     .footer {
-        padding: 20px; /* Зменшити відступи для малих екранів */
+        margin-top: 50px;
+        padding: 20px; 
     }
 
     nav {
         flex-direction: column;
-        row-gap: 8px; /* Ще менші відступи між пунктами меню */
+        row-gap: 8px;
     }
 }
 
@@ -69,5 +70,5 @@
     height: 100px;
     background-image: url('../assets/little_dots.svg');
     background-size: cover; 
-    z-index: 1;
+    z-index: 0;
 }

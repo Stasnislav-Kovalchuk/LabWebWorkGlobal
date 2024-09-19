@@ -85,8 +85,8 @@ header {
     top: -7px;
     left: -5px;
     cursor: pointer;
-    opacity: 0; /* Сховати цей елемент */
-    z-index: 2; /* Помістити його над бургером */
+    opacity: 0; 
+    z-index: 2; 
 }
 
 #menuToggle span {
@@ -107,7 +107,7 @@ header {
 }
 
 #menuToggle input:checked ~ span:nth-last-child(3) {
-    opacity: 0; /* Сховати середній span */
+    opacity: 0; 
 }
 
 #menuToggle input:checked ~ span:nth-last-child(2) {
@@ -126,17 +126,17 @@ header {
     transform: translateX(-100%);   
     transition: transform 0.5s ease; 
     z-index: 10;                    
-    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
-    border-radius: 0px 10px 10px 0px; /* Закруглені краї */
+    
+    border-radius: 0px 10px 10px 0px; 
 }
 
 #popup-menu ul {
-    margin: 0;                      /* Прибрати відступи */
-    padding: 0;                     /* Прибрати відступи */
+    margin: 0;                      
+    padding: 0;                    
 }
 
 #menu {
-    padding: 0;                     /* Прибрати відступи для списку */
+    padding: 0;                     
 }
 
 #menu li {
@@ -144,19 +144,18 @@ header {
     font-style: normal;
     text-decoration: none;
     font-weight: 700;
-    padding: 15px 0;                /* Відступи між пунктами меню */
-    font-size: 20px;                /* Розмір шрифту */
-    color: #757575;                 /* Колір тексту */
-    transition: color 0.3s ease;    /* Анімація для зміни кольору */
+    padding: 15px 0;                
+    font-size: 20px;               
+    color: #757575;                
+    transition: color 0.3s ease;    
 }
 
 #menu li:hover {
-    color: #000000;                 /* Зміна кольору при наведенні */
+    color: #000000;                 
 }
 
-/* Для показу попапу при активному чекбоксі */
 #menuToggle input:checked ~ #popup-menu {
-    transform: translateX(0);       /* Показати меню */
+    transform: translateX(0);      
 }
 
 .desktop-nav {
@@ -178,6 +177,6 @@ header {
 
 @media (max-width: 870px) {
     .desktop-nav {
-        display: none; /* Сховати десктопне меню на малих екранах */
+        display: none; 
     }
 }

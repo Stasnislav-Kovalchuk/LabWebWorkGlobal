@@ -18,7 +18,7 @@
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    max-width: 100%; /* Щоб уникнути виходу за межі екрану на малих пристроях */
+    max-width: 100%;
 
     &:hover {
         transform: translateY(-5px);
