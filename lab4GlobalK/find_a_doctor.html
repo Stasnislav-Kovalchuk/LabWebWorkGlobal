@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trafalgar</title>
+    <link rel="stylesheet" href="components/global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="/"><img src="assets/logo.svg" alt="logo" /></a>
+        <nav class="desktop-nav"> 
+            <a href="https://www.amazon.com/Authentic-Shilajit-Siberian-Mumijo-grams/dp/B01DQK1F4U"> <span>Home</span></a>
+            <a href="find_a_doctor.html"> Find a doctor </a>
+            <a href="https://www.amazon.com/Authentic-Shilajit-Siberian-Mumijo-grams/dp/B01DQK1F4U"> Apps </a>
+            <a href="https://www.amazon.com/Authentic-Shilajit-Siberian-Mumijo-grams/dp/B01DQK1F4U"> Testimonials </a>
+            <a href="https://www.amazon.com/Authentic-Shilajit-Siberian-Mumijo-grams/dp/B01DQK1F4U"> About us </a>
+        </nav>
+        <nav class="burger-nav" role="navigation">
+            <div id="menuToggle">
+                <input type="checkbox" id="burger-checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+                <div id="popup-menu">
+                    <ul id="menu">
+                        <a href="#"><li>Home</li></a>
+                        <a href="#"><li>Find a doctor</li></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.binance.dev&hl=ru"><li>Apps</li></a>
+                        <a href="https://www.indeed.com/career-advice/career-development/how-to-write-a-testimonial#:~:text=A%20testimonial%20is%20a%20statement,or%20provide%20specific%20improvement%20statistics."><li>Testimonials</li></a>
+                        <a href="https://www.trafalgar.com/en-eu"><li>About us</li></a>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- <div class="section-menu">
+            <div class="create">
+                <a href="#" id="openPopup">Create a doctor</a>
+            </div>
+            <form>
+                <label class="input-buttons-menu">
+                    <input type="text" placeholder="Type something...">
+                    <div class="buttons-menu">
+                        <button type="submit" class="search"><span>Search</span></button>
+                        <button type="reset" class="clear"><span>Clear</span></button>
+                    </div>
+                </label>
+            </form>
+        </div> -->
+        
+        <div class="search-menu" id="search-menu">
+                        
+            <div class="create">
+                <a href="#" id="openPopup">Create a doctor</a>
+            </div>
+            <form>
+                <label class="input-buttons-menu">
+                    <input type="text" placeholder="Type something...">
+                    <div class="buttons-menu">
+                        <button type="submit" class="search"><span>Search</span></button>
+                        <button type="reset" class="clear"><span>Clear</span></button>
+                    </div>
+                </label>
+            </form>
+        </div>
+        <!-- Popup for Creating a Doctor -->
+        <div id="popup" class="popup hidden">
+            <div class="popup-content">
+                <span class="close-popup" id="closePopup">&times;</span>
+                <h2>Create a doctor</h2>
+                <form id="doctorForm">
+                    <label for="doctorName">Name</label>
+                    <input type="text" id="doctorName" placeholder="Enter doctor's name" required />
+        
+                    <label for="doctorDescription">Description</label>
+                    <textarea id="doctorDescription" placeholder="Enter doctor's description" required></textarea>
+        
+                    <label for="doctorPrice">Price</label>
+                    <input type="number" id="doctorPrice" placeholder="Enter doctor's price" required />
+        
+                    <button type="submit">Create</button>
+                </form>
+            </div>
+        </div>
+
+        </section>
+
+        <section class="section-items">
+            <div class="item-manager">
+                <div class="sort-div">
+                    <h1>Manage Doctors</h1>
+                    <form>
+                        <label for="sort">Sort by:</label>
+                        <select class="sort-select" name="sort" id="sort">
+                            <option selected disabled hidden>Choose one...</option>
+                            <option value="price">Price</option>
+                            <option value="name">Name</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="count-div">
+                    <h2>Count price</h2>
+                    <form>
+                        <label>
+                            <button type="submit" class="item-count-button">Count</button>
+                            <output>Total: <span id="total_price">0</span></output>
+                        </label>
+                    </form>
+                </div>
+            </div>
+            <div class="items-wrapper" id="ItemsWrapper"></div>
+            <template id="item-template" >
+                <div class="item" id="item">
+                    <div class="avatar" id="avatar"></div>
+                    <div class="info">
+                        <h3 class="h3" id="name"></h3>
+                        <h4 class="h6" id="specialization"></h4>
+                        <h5 class="h5" id="last-update"></h5>
+                        <h6 class="h6" id="price"></h5>
+                    </div>
+                    <div class="manage">
+                        <button>Edit</button>
+                        <button>Remove</button>
+                    </div>
+                </div>
+            </template>
+        </section>
+    </main>
+
+    <template id="item-template">
+        <div class="item" id="item">
+            <div class="avatar" id="avatar"></div>
+            <div class="info">
+                <h3 class="h3" id="name"></h3>
+                <h4 class="h6" id="specialization"></h4>
+                <h5 class="h5" id="last-update"></h5>
+                <h5 class="h6" id="price"></h5>
+            </div>
+            <div class="manage">
+                <button>Edit</button>
+                <button>Remove</button>
+            </div>
+        </div>
+    </template>
+    
+
+    <footer class="footer">
+        <img class="dots_footer" src="assets/little_dots.svg" alt="dots"/>
+        <img src="assets/logo-footer.svg" alt="logo"/>
+        <nav>
+            <a href="https://www.trafalgar.com/en-eu">Company</a>
+            <a href="https://www.google.com/maps/dir/52.5953073,14.5396857/52.5309121,14.6295681/@52.7714216,14.5268453,8.78z/data=!4m5!4m4!1m0!1m1!4e1!3e3?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D">Region</a>
+            <a href="https://t.me/Stanislav_Kovalchuk">Help</a>
+        </nav>
+    </footer>  
+
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@latest/bundle.min.js"></script>
+    <script src="js/draw_doctors.js" type="module"></script>
+
+    <script>
+        // Initialize Lenis for smooth scrolling
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    </script>
+</body>
+</html>
