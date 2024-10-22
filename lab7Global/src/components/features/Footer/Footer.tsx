@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import white_logo from '../../../images/white_logo.svg';
 import dots from '../../../images/dots.svg';
-import './Footer.scss';
+import './Footer.css';
 
 const Footer: FC = () => {
     return (

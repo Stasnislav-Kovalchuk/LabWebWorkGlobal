@@ -1,7 +1,7 @@
 import React, {FC, useRef} from 'react';
 import gsap from "gsap";
 import logo from '../../../images/logo.svg';
-import './Header.scss';
+import './Header.css';
 import {Link, useLocation} from "react-router-dom";
 
 const Header: FC = () => {

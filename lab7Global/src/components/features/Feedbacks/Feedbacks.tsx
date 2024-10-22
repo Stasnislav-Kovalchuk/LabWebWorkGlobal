@@ -1,7 +1,7 @@
 import React, {FC, useRef} from 'react';
 import arrow from '../../../images/arrow.svg';
 
-import './Feedbacks.scss';
+import './Feedbacks.css';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 

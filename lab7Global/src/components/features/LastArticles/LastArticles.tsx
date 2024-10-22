@@ -1,96 +1,88 @@
-import React, {FC, useRef} from 'react';
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {IArticle} from "../../../intefaces/commonInterfaces";
-import Article from "../../entities/Article/Article";
+import React from 'react';
+// import '../styles/testimonials.css'; // Змінено шлях
+import linrLogo from '../../../images/linr.svg'; 
+import ser1 from '../../../images/ser1.svg'; 
+import ser2 from '../../../images/ser2.svg'; 
+import ser3 from '../../../images/ser3.svg'; 
+import ser4 from '../../../images/ser4.svg'; 
+import ser5 from '../../../images/ser5.svg'; 
+import ser6 from '../../../images/ser6.svg'; 
 
-import article1 from '../../../images/article1.webp';
-import article2 from '../../../images/article2.webp';
-import article3 from '../../../images/article3.webp';
+// import React, {FC, useRef} from 'react';
+// import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import {IArticle} from "../../../intefaces/commonInterfaces";
+// import Article from "../../entities/Article/Article";
 
-import bubble from '../../../images/bubble.svg';
-import dots from '../../../images/dots.svg';
+// import article1 from '../../../images/article1.webp';
+// import article2 from '../../../images/article2.webp';
+// import article3 from '../../../images/article3.webp';
 
-import './LastArticles.scss';
+// import bubble from '../../../images/bubble.svg';
+// import dots from '../../../images/dots.svg';
 
-gsap.registerPlugin(ScrollTrigger);
+import './LastArticles.css';
+import './services.css';
 
-const articles: IArticle[] = [
-    {
-        id: 1,
-        title: 'Disease detection, check up in the laboratory',
-        description: 'In this case, the role of the health laboratory is very important to do a disease detection...',
-        picture: article1
-    },
-    {
-        id: 2,
-        title: 'Herbal medicines that are safe for consumption',
-        description: 'Herbal medicine is very widely used at this time because of its very good for your health...',
-        picture: article2
-    },
-    {
-        id: 3,
-        title: 'Natural care for healthy facial skin',
-        description: 'A healthy lifestyle should start from now and also for your skin health. There are some...',
-        picture: article3
-    }
-]
 
-const LastArticles: FC = () => {
-    const ctxRef = useRef<gsap.Context>(gsap.context());
-    const main = useRef<HTMLDivElement>(document.createElement('div'));
+// import ser1 from '../assets/doctror1.webp'; 
+// import ser2 from '../assets/doctor2.webp'; 
+// import ser3 from '../assets/doctor4.webp'; 
+// import ser4 from '../assets/doctor5.webp'; 
+// import ser5 from '../assets/doctor2.webp'; 
+// import ser6 from '../assets/doctor3.webp'; 
 
-    console.log(typeof article1)
+import bubble from '../../../images/big-bubble.svg'; 
 
-    React.useEffect(() => {
-        ctxRef.current = gsap.context(() => {
-            const articles = main.current.querySelectorAll(".article");
 
-            articles.forEach((article, index) => {
-                const animation: any = gsap.fromTo(article,
-                    {
-                        opacity: 0,
-                        transform: 'translateY(10svh)'
-                    },
-                    {
-                        opacity: 1,
-                        transform: 'translateY(0px)',
-                        ease: "power1.inOut",
-                        delay: (index + 1) * 0.2,
-                        scrollTrigger: {
-                            trigger: article,
-                            once: false,
-                            start: 'top bottom 100%',
-                            toggleActions: 'play none none reverse',
-                            onEnter: () => animation.restart(true),
-                            onLeaveBack: () => animation.reverse(),
-                            invalidateOnRefresh: true
-                        }
-                    });
-            });
-        }, main);
-
-        return () => {
-            if (ctxRef.current) {
-                ctxRef.current.revert();
-            }
-        };
-    }, []);
-
+const TestimonialsSection = () => {
     return (
-        <section className="last-articles" ref={main}>
-            <h2 className="h2">Check out our latest article</h2>
-            <div className="line"></div>
-            <div className="articles">
-                {articles.map(article => (
-                    <Article key={article.id} {...article}/>
-                ))}
+        <section className="testimonials-section" data-aos="fade-up">
+            <h2 className="testimonials-heading">Our services</h2>
+            <img src={linrLogo} alt="logo" data-aos="zoom-in" />
+            <img src={bubble} alt="bubble" className="bubble" />
+            <p className="sup-descrip" data-aos="fade-up">
+                We provide to you the best choices for your health needs. Make sure to undergo treatment with our highly qualified doctors.
+            </p>
+
+            <div className="services" data-aos="fade-up">
+                <div className="service">
+                    <img src={ser1} alt="Search doctor" />
+                    <h3>Search doctor</h3>
+                    <p>Choose from thousands of specialists, general practitioners, and trusted hospitals.</p>
+                </div>
+                <div className="service" data-aos="fade-up">
+                    <img src={ser2} alt="Online pharmacy" />
+                    <h3>Online pharmacy</h3>
+                    <p>Buy your medicines easily with our mobile app and fast delivery system.</p>
+                </div>
+                <div className="service" data-aos="fade-up">
+                    <img src={ser3} alt="Consultation" />
+                    <h3>Consultation</h3>
+                    <p>Get a free consultation from our trusted doctors with the best advice.</p>
+                </div>
+                <div className="service" data-aos="fade-up">
+                    <img src={ser4} alt="Details info" />
+                    <h3>Details info</h3>
+                    <p>Access detailed health information and personalized guidance from specialists.</p>
+                </div>
+                <div className="service" data-aos="fade-up">
+                    <img src={ser5} alt="Emergency care" />
+                    <h3>Emergency care</h3>
+                    <p>Receive 24/7 urgent care for you and your loved ones anytime.</p>
+                </div>
+                <div className="service" data-aos="fade-up">
+                    <img src={ser6} alt="Tracking" />
+                    <h3>Tracking</h3>
+                    <p>Easily track and save your medical history and health data with our system.</p>
+                </div>
             </div>
-            <a href='/' className="blue-btn small h6">Show more</a>
-            <img className="bubble" src={bubble} alt="bubble"/>
-            <img className="dots" src={dots} alt='dots'/>
+
+            <div className="learn-more">
+                <a href="#" className="button" data-aos="fade-up">Learn More</a>
+            </div>
         </section>
     );
 };
 
-export default LastArticles;
+export default TestimonialsSection;

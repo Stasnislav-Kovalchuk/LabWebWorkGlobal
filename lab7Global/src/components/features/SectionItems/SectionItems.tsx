@@ -1,5 +1,5 @@
 import React, {Dispatch, FC, FormEvent, useEffect, useState} from 'react';
-import './SectionItems.scss';
+import './SectionItems.css';
 import {defaultDoctor, IDoctor} from "../../../intefaces/doctorInterfaces";
 import DoctorItem from "../../entities/DoctorItem/DoctorItem";
 import PopUpModalWindow from "../../common/PopUpModalWindow/PopUpModalWindow";
