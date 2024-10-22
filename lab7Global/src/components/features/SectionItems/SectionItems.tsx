@@ -49,7 +49,7 @@ const SectionItems: FC<SectionItemsProps> = ({doctors, setDoctors, searchOptions
             return;
         }
 
-        const isNameUnique = !doctors.some(doctor => doctor.name === editedDoctor.name);
+        const isNameUnique = !doctors.some(doctor => doctor.name === editedDoctor.name && doctor.doctor_id !== editedDoctor.doctor_id);
         if (!isNameUnique) {
             setError('Doctor name must be unique');
             return;

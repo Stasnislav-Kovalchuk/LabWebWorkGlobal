@@ -1,7 +1,4 @@
 import React, {Dispatch, FC, FormEvent, useState} from 'react';
-
-// import searchIcon from '../../../images/search_button.svg';
-// import deleteIcon from '../../../images/clear_button.svg';
 import './SectionMenu.css';
 import {defaultDoctor, IDoctor} from "../../../intefaces/doctorInterfaces";
 import PopUpModalWindow from "../../common/PopUpModalWindow/PopUpModalWindow";
@@ -11,7 +8,6 @@ interface SectionMenuProps {
     setDoctors: Dispatch<React.SetStateAction<IDoctor[]>>;
     setSearchOptions: Dispatch<React.SetStateAction<{term: string, sort: string}>>;
 }
-
 
 const SectionMenu: FC<SectionMenuProps> = ({doctors, setDoctors, setSearchOptions}) => {
     const [active, setActive] = useState<boolean>(false);
@@ -51,12 +47,10 @@ const SectionMenu: FC<SectionMenuProps> = ({doctors, setDoctors, setSearchOption
                         <input placeholder="Type something..."
                                onChange={(e) => setSearchOptions(prev => ({...prev, term: e.target.value}))}
                         />
-                        {/*<label className="buttons-menu">*/}
-                        {/*    <button type="submit" className="search"><span>Search</span><img*/}
-                        {/*        src={searchIcon} alt="Search"/></button>*/}
-                        {/*    <button type="reset" className="clear"><span>Clear</span><img*/}
-                        {/*        src={deleteIcon} alt="Clear"/></button>*/}
-                        {/*</label>*/}
+                        <label className="buttons-menu">
+                            <button type="submit" className="search"><span>Search</span></button>
+                            <button type="reset" className="clear"><span>Clear</span></button>
+                        </label>
                     </label>
                 </form>
             </div>
