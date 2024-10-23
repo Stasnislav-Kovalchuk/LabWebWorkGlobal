@@ -5,8 +5,8 @@ export interface IDoctor {
     updated_at: string;
     price: number;
     picture: string;
-    rating: number,
-    location: string
+    rating: number;
+    location: string;
 }
 
 export const defaultDoctor: IDoctor = {

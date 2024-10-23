@@ -1,13 +1,16 @@
 import React, { FC } from 'react';
-import {Link, useParams} from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useDoctors } from "../../context/DoctorsContext";
+import { IDoctor } from "../../../intefaces/doctorInterfaces";
 import starIcon from '../../../images/star.png';
 import './ItemPage.scss';
+import SectionMenu from '../../features/SectionMenu/SectionMenu';
+import DoctorCard from '../../entities/DoctorItem/DoctorItem';
 
 const ItemPage: FC = () => {
     const { id } = useParams<{ id: string }>();
     const { doctors } = useDoctors();
-    const doctor = doctors.find(d => d.doctor_id === Number(id));
+    const doctor = doctors.find((d: IDoctor) => d.doctor_id === Number(id));
 
     if (!doctor) {
         return <div className='item-page'>Doctor not found</div>;

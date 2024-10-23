@@ -2,18 +2,25 @@ import React, { createContext, useContext, useState, FC, ReactNode } from 'react
 import { IDoctor } from "../../intefaces/doctorInterfaces";
 import doctorsData from '../../data.json';
 
-
 const flattenedDoctorsData: IDoctor[] = doctorsData.flat().map(doctor => ({
     ...doctor,
     rating: 5, // Додаємо значення за замовчуванням
     location: 'Ukraine' // Додаємо значення за замовчуванням
 }));
 
+interface SearchOptions {
+    term: string;
+    sort: string;
+    price: number | null;
+    rating: number | null;
+    country: string;
+}
+
 interface DoctorsContextProps {
     doctors: IDoctor[];
     setDoctors: React.Dispatch<React.SetStateAction<IDoctor[]>>;
-    filters: { price: number; rating: number; country: string };
-    setFilters: React.Dispatch<React.SetStateAction<{ price: number; rating: number; country: string }>>;
+    searchOptions: SearchOptions;
+    setSearchOptions: React.Dispatch<React.SetStateAction<SearchOptions>>;
 }
 
 const DoctorsContext = createContext<DoctorsContextProps | undefined>(undefined);
@@ -26,12 +33,18 @@ export const useDoctors = () => {
     return context;
 };
 
-export const DoctorsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const DoctorsProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [doctors, setDoctors] = useState<IDoctor[]>(flattenedDoctorsData);
-    const [filters, setFilters] = useState<{ price: number; rating: number; country: string }>({ price: 0, rating: 0, country: '' });
+    const [searchOptions, setSearchOptions] = useState<SearchOptions>({
+        term: '',
+        sort: '',
+        price: null,
+        rating: null,
+        country: ''
+    });
 
     return (
-        <DoctorsContext.Provider value={{ doctors, setDoctors, filters, setFilters }}>
+        <DoctorsContext.Provider value={{ doctors, setDoctors, searchOptions, setSearchOptions }}>
             {children}
         </DoctorsContext.Provider>
     );

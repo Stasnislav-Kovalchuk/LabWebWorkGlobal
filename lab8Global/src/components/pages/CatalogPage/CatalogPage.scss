@@ -1,211 +1,23 @@
 .catalog-page {
-  padding: 40px 20px;
-  background-color: #f5f7fa;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+  .load-more-button {
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
 
-  .header {
-    text-align: center;
-    margin-bottom: 40px;
-
-    h1 {
-      font-size: 2.5rem;
-      color: #2c3e50;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1.1rem;
-      color: #7f8c8d;
-    }
-  }
-  .pagination {
-    display: flex;
-    justify-content: center;  // Центрування кнопки
-    margin-top: 20px;
-  
-    .load-more-button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-      &:hover {
-        background-color: #0056b3;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      &:active {
-        transform: translateY(0);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-      }
-
-      &:focus {
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
-      }
-    }
-  }
-  
-  .filters {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    
-    .search {
-      flex: 1;
-      max-width: 400px;
-      
-      input {
-        width: 100%;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 25px;
-        background-color: white;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        font-size: 1rem;
-        
-        &:focus {
-          outline: none;
-          box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-        }
-      }
-    }
-    
-    .sort {
-      select {
-        padding: 12px 20px;
-        border: none;
-        border-radius: 25px;
-        background-color: white;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        font-size: 1rem;
-        cursor: pointer;
-        
-        &:focus {
-          outline: none;
-          box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-        }
-      }
-    }
-  }
-
-  .doctors-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    
-    .doctor-card {
-      background-color: white;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
-      }
-      
-      .doctor-image {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-      }
-      
-      .doctor-info {
-        padding: 20px;
-        
-        h3 {
-          font-size: 1.2rem;
-          color: #2c3e50;
-          margin-bottom: 10px;
-        }
-        
-        p {
-          font-size: 0.9rem;
-          color: #7f8c8d;
-          margin-bottom: 15px;
-        }
-        
-        .doctor-stats {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          
-          .rating {
-            display: flex;
-            align-items: center;
-            
-            .star {
-              color: #f1c40f;
-              margin-right: 5px;
-            }
-          }
-          
-          .price {
-            font-weight: bold;
-            color: #27ae60;
-          }
-        }
-      }
-    }
-  }
-
-//   .pagination {
-//     display: flex;
-//     justify-content: center;
-//     margin-top: 40px;
-    
-//     button {
-//       padding: 10px 15px;
-//       margin: 0 5px;
-//       border: none;
-//       border-radius: 5px;
-//       background-color: #3498db;
-//       color: white;
-//       cursor: pointer;
-//       transition: background-color 0.3s ease;
-      
-//       &:hover {
-//         background-color: #2980b9;
-//       }
-      
-//       &:disabled {
-//         background-color: #bdc3c7;
-//         cursor: not-allowed;
-//       }
-//     }
-//   }
-}
-
-@media (max-width: 768px) {
-  .catalog-page {
-    .filters {
-      flex-direction: column;
-      align-items: stretch;
-      
-      .search, .sort {
-        margin-bottom: 15px;
-      }
-    }
-    
-    .doctors-grid {
-      grid-template-columns: 1fr;
+    &:hover {
+      background-color: #45a049;
     }
   }
 }
-
-
