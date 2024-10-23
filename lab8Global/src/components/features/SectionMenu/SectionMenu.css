@@ -1,0 +1,123 @@
+.section-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 75px 40px;
+}
+
+.create button {
+  font-size: large;
+  font-weight: 700;
+  border: 1px solid var(--white);
+  border-radius: 6px;
+  padding: 15px 46px;
+  color: var(--white);
+  cursor: pointer;
+  background-color: #0f92af;
+}
+
+.input-buttons-menu {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.input-buttons-menu input {
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid black;
+}
+
+.input-buttons-menu input[type="number"] {
+  width: 100px;
+}
+
+.buttons-menu {
+  display: flex;
+  column-gap: 6px;
+}
+
+.search {
+  font-size: large;
+  font-weight: 700;
+  padding: 15px 46px;
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+  background: none;
+  background-color: #119b28;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.clear {
+  font-size: large;
+  font-weight: 700;
+  padding: 15px 46px;
+  border: 1px solid indianred;
+  border-radius: 8px;
+  background-color: #fd4124;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+textarea:focus, input:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 1100px) {
+  .section-menu {
+    padding: 0 5% 40px;
+  }
+  
+  .input-buttons-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .input-buttons-menu input {
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .section-menu {
+    flex-direction: column-reverse;
+    row-gap: 20px;
+  }
+  .create button {
+    display: flex;
+  }
+  
+  .input-buttons-menu {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .input-buttons-menu input {
+    width: 100%;
+  }
+}
+
+.buttons-menu {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.search, .clear {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.search {
+  background-color: #007bff;
+  color: white;
+}
+
+.clear {
+  background-color: #dc3545;
+  color: white;
+}
