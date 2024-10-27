@@ -11,7 +11,7 @@ const filterDoctorsBySearchOptions = (doctors: IDoctor[], searchOptions: { term:
     return doctors.filter(doctor => {
         const matchesTerm = term ? doctor.name.toLowerCase().includes(term.toLowerCase()) || doctor.description.toLowerCase().includes(term.toLowerCase()) : true;
         const matchesPrice = price !== null ? doctor.price <= price : true;
-        const matchesRating = rating !== null ? doctor.rating >= rating : true;
+        const matchesRating = rating ? doctor.rating >= Number(rating) : true;
         const matchesCountry = country ? doctor.location.toLowerCase() === country.toLowerCase() : true;
 
         return matchesTerm && matchesPrice && matchesRating && matchesCountry;
@@ -29,7 +29,7 @@ const CatalogPage: FC = () => {
         return doctors.filter(doctor => {
             const matchesTerm = term ? doctor.name.toLowerCase().includes(term.toLowerCase()) || doctor.description.toLowerCase().includes(term.toLowerCase()) : true;
             const matchesPrice = price !== null ? doctor.price <= price : true;
-            const matchesRating = rating !== null ? doctor.rating >= rating : true;
+            const matchesRating = rating ? doctor.rating >= Number(rating) : true;
             const matchesCountry = country ? doctor.location.toLowerCase() === country.toLowerCase() : true;
     
             return matchesTerm && matchesPrice && matchesRating && matchesCountry;

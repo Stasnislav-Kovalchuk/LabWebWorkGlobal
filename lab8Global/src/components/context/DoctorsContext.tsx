@@ -1,51 +1,69 @@
-import React, { createContext, useContext, useState, FC, ReactNode } from 'react';
+import React, { createContext, useContext, useState, FC, ReactNode, useCallback } from 'react';
 import { IDoctor } from "../../intefaces/doctorInterfaces";
 import doctorsData from '../../data.json';
 
-const flattenedDoctorsData: IDoctor[] = doctorsData.flat().map(doctor => ({
-    ...doctor,
-    rating: 5, // Додаємо значення за замовчуванням
-    location: 'Ukraine' // Додаємо значення за замовчуванням
-}));
+const flattenedDoctorsData: IDoctor[] = doctorsData.flat();
 
-interface SearchOptions {
-    term: string;
-    sort: string;
-    price: number | null;
-    rating: number | null;
-    country: string;
+export interface SearchOptions {
+  term: string;
+  price: number | null;
+  rating: number | null;
+  country: string;
+  sort: string;
 }
 
 interface DoctorsContextProps {
-    doctors: IDoctor[];
-    setDoctors: React.Dispatch<React.SetStateAction<IDoctor[]>>;
-    searchOptions: SearchOptions;
-    setSearchOptions: React.Dispatch<React.SetStateAction<SearchOptions>>;
+  doctors: IDoctor[];
+  setDoctors: React.Dispatch<React.SetStateAction<IDoctor[]>>;
+  searchOptions: SearchOptions;
+  setSearchOptions: React.Dispatch<React.SetStateAction<SearchOptions>>;
+  filteredDoctors: IDoctor[];
 }
 
 const DoctorsContext = createContext<DoctorsContextProps | undefined>(undefined);
 
 export const useDoctors = () => {
-    const context = useContext(DoctorsContext);
-    if (!context) {
-        throw new Error('useDoctors must be used within a DoctorsProvider');
-    }
-    return context;
+  const context = useContext(DoctorsContext);
+  if (!context) {
+    throw new Error('useDoctors must be used within a DoctorsProvider');
+  }
+  return context;
 };
 
 export const DoctorsProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const [doctors, setDoctors] = useState<IDoctor[]>(flattenedDoctorsData);
-    const [searchOptions, setSearchOptions] = useState<SearchOptions>({
-        term: '',
-        sort: '',
-        price: null,
-        rating: null,
-        country: ''
-    });
+  const [doctors, setDoctors] = useState<IDoctor[]>(flattenedDoctorsData);
+  const [searchOptions, setSearchOptions] = useState<SearchOptions>({
+    term: '',
+    price: null,
+    rating: null,
+    country: '',
+    sort: ''
+  });
 
-    return (
-        <DoctorsContext.Provider value={{ doctors, setDoctors, searchOptions, setSearchOptions }}>
-            {children}
-        </DoctorsContext.Provider>
-    );
+  const filterDoctors = useCallback((doctors: IDoctor[], options: SearchOptions): IDoctor[] => {
+    return doctors.filter(doctor => {
+      const matchesTerm = doctor.name.toLowerCase().includes(options.term.toLowerCase());
+      const matchesPrice = options.price === null || doctor.price <= options.price;
+      const matchesRating = options.rating === null || doctor.rating >= options.rating;
+
+      return matchesTerm && matchesPrice && matchesRating;
+    }).sort((a, b) => {
+      if (options.sort === 'price') {
+        return a.price - b.price;
+      } else if (options.sort === 'rating') {
+        return b.rating - a.rating;
+      }
+      return 0;
+    });
+  }, []);
+
+  const filteredDoctors = filterDoctors(doctors, searchOptions);
+
+  return (
+    <DoctorsContext.Provider value={{ doctors, setDoctors, searchOptions, setSearchOptions, filteredDoctors }}>
+      {children}
+    </DoctorsContext.Provider>
+  );
 };
+
+export { DoctorsContext };

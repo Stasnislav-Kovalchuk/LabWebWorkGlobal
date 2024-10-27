@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, useState } from 'react';
+import React, { FC, FormEvent, useState, useEffect } from 'react';
 import './SectionMenu.css';
 import { defaultDoctor, IDoctor } from "../../../intefaces/doctorInterfaces";
 import PopUpDoctorForm from "../../entities/PopUpDoctorForm/PopUpDoctorForm";
@@ -8,7 +8,13 @@ const SectionMenu: FC = () => {
     const { doctors, setDoctors, searchOptions, setSearchOptions } = useDoctors();
     const [active, setActive] = useState<boolean>(false);
     const [newDoctor, setNewDoctor] = useState<IDoctor>(defaultDoctor);
-    const [error, setError] = useState<string>('')
+    const [error, setError] = useState<string>('');
+    const [totalPrice, setTotalPrice] = useState<number>(0);
+
+    useEffect(() => {
+        const total = doctors.reduce((sum, doctor) => sum + doctor.price, 0);
+        setTotalPrice(total);
+    }, [doctors]);
 
     const handleNewDoctor = (e: FormEvent) => {
         e.preventDefault();
@@ -35,7 +41,7 @@ const SectionMenu: FC = () => {
     const handleFilterChange = (filterType: string, value: string | number) => {
         setSearchOptions(prev => ({
             ...prev,
-            [filterType]: value === "" ? null : value
+            [filterType]: value === "" ? null : filterType === 'rating' ? Number(value) : value
         }));
     }
 
@@ -43,6 +49,9 @@ const SectionMenu: FC = () => {
         <section className="section-menu">
             <div className="create">
                 <button className="create-button" onClick={() => setActive(true)}>Create a doctor</button>
+            </div>
+            <div className="total-price">
+                Total price of all doctors: ${totalPrice.toFixed(2)}
             </div>
             <div className="search-menu" id="search-menu">
                 <form className='filter-form'>
@@ -75,10 +84,14 @@ const SectionMenu: FC = () => {
                             <option value="USA">USA</option>
                         </select>
                     </label>
-                    <label className="input-buttons-menu">
+                    <label>
+                        Search:
+                        <label className="input-buttons-menu">
                         <input placeholder="Type something..."
                                onChange={(e) => setSearchOptions(prev => ({...prev, term: e.target.value}))}
+            
                         />
+                        </label>
                     </label>
                 </form>
             </div>

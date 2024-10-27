@@ -10,30 +10,23 @@ interface SectionItemsProps {
     doctors: IDoctor[];
 }
 
-const filterDoctorsBySearchOptions = (doctors: IDoctor[], searchOptions: {term: string, sort: string}) => {
-    const { term, sort } = searchOptions;
-
-    const filteredDoctors = doctors.filter(doctor =>
-        doctor.name.toLowerCase().trim().includes(term.toLowerCase().trim()) ||
-        doctor.description.toLowerCase().trim().includes(term.toLowerCase().trim())
-    );
-
-    return filteredDoctors.sort((a, b) => {
-        if (sort === 'price') {
-            return a.price - b.price;
-        } else if (sort === 'name') {
-            return a.name.localeCompare(b.name);
-        }
-        return 0;
-    });
-};
-
 const SectionItems: FC<SectionItemsProps> = ({ doctors }) => {
     const { setDoctors, searchOptions, setSearchOptions } = useDoctors();
     const [active, setActive] = useState(false);
     const [editedDoctor, setEditedDoctor] = useState<IDoctor>(defaultDoctor);
     const [error, setError] = useState('');
     const [visibleDoctors, setVisibleDoctors] = useState(3);
+    const [sortedDoctors, setSortedDoctors] = useState<IDoctor[]>(doctors);
+
+    useEffect(() => {
+        let sorted = [...doctors];
+        if (searchOptions.sort === 'price') {
+            sorted.sort((a, b) => a.price - b.price);
+        } else if (searchOptions.sort === 'rating') {
+            sorted.sort((a, b) => b.rating - a.rating);
+        }
+        setSortedDoctors(sorted);
+    }, [doctors, searchOptions.sort]);
 
     const handleEditDoctor = (e: React.FormEvent) => {
         e.preventDefault();
@@ -55,16 +48,20 @@ const SectionItems: FC<SectionItemsProps> = ({ doctors }) => {
         setVisibleDoctors(prevVisible => prevVisible + 3);
     };
 
+    const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSearchOptions(prev => ({
+            ...prev,
+            sort: e.target.value
+        }));
+    };
+
     return (
         <section className="section-items">
             <div className="sort">
                 <select
                     name="sort" 
                     id="sort" 
-                    onChange={(e) => setSearchOptions((prev: typeof searchOptions) => ({
-                        ...prev,
-                        sort: e.target.value
-                    }))}
+                    onChange={handleSortChange}
                     value={searchOptions.sort}
                 >
                     <option value="">Sort by</option>
@@ -73,7 +70,7 @@ const SectionItems: FC<SectionItemsProps> = ({ doctors }) => {
                 </select>
             </div>
             <div className="items">
-                {doctors.slice(0, visibleDoctors).map((doctor) => (
+                {sortedDoctors.slice(0, visibleDoctors).map((doctor) => (
                     <DoctorItem
                         key={doctor.doctor_id}
                         doctor={doctor}
@@ -83,7 +80,7 @@ const SectionItems: FC<SectionItemsProps> = ({ doctors }) => {
                     />
                 ))}
             </div>
-            {visibleDoctors < doctors.length && (
+            {visibleDoctors < sortedDoctors.length && (
                 <button className="load-more-btn" onClick={handleLoadMore}>
                     <span className="load-more-text">Load More</span>
                     <span className="load-more-icon">+</span>
