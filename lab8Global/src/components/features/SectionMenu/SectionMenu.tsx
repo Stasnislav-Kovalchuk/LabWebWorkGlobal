@@ -3,6 +3,7 @@ import './SectionMenu.css';
 import { defaultDoctor, IDoctor } from "../../../intefaces/doctorInterfaces";
 import PopUpDoctorForm from "../../entities/PopUpDoctorForm/PopUpDoctorForm";
 import { useDoctors } from "../../context/DoctorsContext";
+import FilterForm from '../FilterForm/FilterForm';
 
 const SectionMenu: FC = () => {
     const { doctors, setDoctors, searchOptions, setSearchOptions } = useDoctors();
@@ -45,6 +46,10 @@ const SectionMenu: FC = () => {
         }));
     }
 
+    const handleSearchChange = (value: string) => {
+        setSearchOptions(prev => ({...prev, term: value}));
+    };
+
     return (
         <section className="section-menu">
             <div className="create">
@@ -54,46 +59,11 @@ const SectionMenu: FC = () => {
                 Total price of all doctors: ${totalPrice.toFixed(2)}
             </div>
             <div className="search-menu" id="search-menu">
-                <form className='filter-form'>
-                    <label>
-                        Price:
-                        <select onChange={(e) => handleFilterChange('price', e.target.value)}>
-                            <option value="">Select a price</option>
-                            <option value="50">{'< '}50</option>
-                            <option value="100">{'< '}100</option>
-                            <option value="200">{'< '}200</option>
-                            <option value="400">{'< '}400</option>
-                        </select>
-                    </label>
-                    <label>
-                        Rating:
-                        <select onChange={(e) => handleFilterChange('rating', e.target.value)}>
-                            <option value="">Select a rating</option>
-                            <option value="1">1+</option>
-                            <option value="2">2+</option>
-                            <option value="3">3+</option>
-                            <option value="4">4+</option>
-                        </select>
-                    </label>
-                    <label>
-                        Country:
-                        <select onChange={(e) => handleFilterChange('country', e.target.value)}>
-                            <option value="">Select a country</option>
-                            <option value="Ukraine">Ukraine</option>
-                            <option value="Poland">Poland</option>
-                            <option value="USA">USA</option>
-                        </select>
-                    </label>
-                    <label>
-                        Search:
-                        <label className="input-buttons-menu">
-                        <input placeholder="Type something..."
-                               onChange={(e) => setSearchOptions(prev => ({...prev, term: e.target.value}))}
-            
-                        />
-                        </label>
-                    </label>
-                </form>
+                <FilterForm 
+                    searchOptions={searchOptions}
+                    onFilterChange={handleFilterChange}
+                    onSearchChange={handleSearchChange}
+                />
             </div>
 
             <PopUpDoctorForm

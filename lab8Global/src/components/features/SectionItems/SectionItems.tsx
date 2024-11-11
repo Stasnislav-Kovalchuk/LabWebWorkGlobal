@@ -4,7 +4,7 @@ import { defaultDoctor, IDoctor } from "../../../intefaces/doctorInterfaces";
 import DoctorItem from "../../entities/DoctorItem/DoctorItem";
 import PopUpModalWindow from "../../common/PopUpModalWindow/PopUpModalWindow";
 import PopUpDoctorForm from '../../entities/PopUpDoctorForm/PopUpDoctorForm';
-import { useDoctors } from '../../context/DoctorsContext';
+import { SearchOptions, useDoctors } from '../../context/DoctorsContext';
 
 interface SectionItemsProps {
     doctors: IDoctor[];
@@ -51,7 +51,7 @@ const SectionItems: FC<SectionItemsProps> = ({ doctors }) => {
     const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSearchOptions(prev => ({
             ...prev,
-            sort: e.target.value
+            sort: e.target.value as SearchOptions['sort']
         }));
     };
 

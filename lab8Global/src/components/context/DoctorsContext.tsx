@@ -5,12 +5,20 @@ import doctorsData from '../../data.json';
 const flattenedDoctorsData: IDoctor[] = doctorsData.flat();
 
 export interface SearchOptions {
-  term: string;
   price: number | null;
   rating: number | null;
-  country: string;
-  sort: string;
+  country: string | null;
+  term: string;
+  sort: 'price' | 'rating' | '';
 }
+
+const defaultSearchOptions: SearchOptions = {
+  price: null,
+  rating: null,
+  country: null,
+  term: '',
+  sort: ''
+};
 
 interface DoctorsContextProps {
   doctors: IDoctor[];
@@ -32,21 +40,16 @@ export const useDoctors = () => {
 
 export const DoctorsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [doctors, setDoctors] = useState<IDoctor[]>(flattenedDoctorsData);
-  const [searchOptions, setSearchOptions] = useState<SearchOptions>({
-    term: '',
-    price: null,
-    rating: null,
-    country: '',
-    sort: ''
-  });
+  const [searchOptions, setSearchOptions] = useState<SearchOptions>(defaultSearchOptions);
 
-  const filterDoctors = useCallback((doctors: IDoctor[], options: SearchOptions): IDoctor[] => {
+  const filterDoctorsBySearchOptions = (doctors: IDoctor[], options: SearchOptions) => {
     return doctors.filter(doctor => {
       const matchesTerm = doctor.name.toLowerCase().includes(options.term.toLowerCase());
       const matchesPrice = options.price === null || doctor.price <= options.price;
       const matchesRating = options.rating === null || doctor.rating >= options.rating;
+      const matchesCountry = options.country === null || doctor.country === options.country;
 
-      return matchesTerm && matchesPrice && matchesRating;
+      return matchesTerm && matchesPrice && matchesRating && matchesCountry;
     }).sort((a, b) => {
       if (options.sort === 'price') {
         return a.price - b.price;
@@ -55,9 +58,9 @@ export const DoctorsProvider: FC<{ children: ReactNode }> = ({ children }) => {
       }
       return 0;
     });
-  }, []);
+  };
 
-  const filteredDoctors = filterDoctors(doctors, searchOptions);
+  const filteredDoctors = filterDoctorsBySearchOptions(doctors, searchOptions);
 
   return (
     <DoctorsContext.Provider value={{ doctors, setDoctors, searchOptions, setSearchOptions, filteredDoctors }}>
