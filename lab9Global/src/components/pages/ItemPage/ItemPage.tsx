@@ -1,16 +1,27 @@
-import React, { FC } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useDoctors } from "../../context/DoctorsContext";
 import { IDoctor } from "../../../intefaces/doctorInterfaces";
+import React, {FC, useEffect, useState} from 'react';
+import {Link, useParams} from 'react-router-dom';
 import starIcon from '../../../images/star.png';
 import './ItemPage.scss';
+import DoctorServices from "../../../services/DoctorServices";
 import SectionMenu from '../../features/SectionMenu/SectionMenu';
 import DoctorCard from '../../entities/DoctorItem/DoctorItem';
 
 const ItemPage: FC = () => {
     const { id } = useParams<{ id: string }>();
-    const { doctors } = useDoctors();
-    const doctor = doctors.find((d: IDoctor) => d.doctor_id === Number(id));
+    const [doctor, setDoctor] = useState<IDoctor | null>(null)
+    useEffect(() => {
+        try {
+            if (id != null) {
+                const doctorId = parseInt(id);
+                DoctorServices.getDoctorById(doctorId).then(({data}) => setDoctor(data as IDoctor));
+
+            }
+        }
+        catch (e) {
+        }
+    }, [id]);
+
 
     if (!doctor) {
         return <div className='item-page'>Doctor not found</div>;
@@ -26,7 +37,7 @@ const ItemPage: FC = () => {
                             {doctor.rating}
                             <img width={20} height={20} src={starIcon} alt='stars'/>
                         </div>
-                        <div className='blue'>{doctor.location}</div>
+                        <div className='blue'>{doctor.country}</div>
                     </div>
                     <h1 className='h2'>{doctor.name}</h1>
                     <h2 className={'h7'}>{doctor.description}</h2>

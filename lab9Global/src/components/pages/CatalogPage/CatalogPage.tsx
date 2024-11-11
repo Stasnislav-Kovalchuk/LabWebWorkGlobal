@@ -2,8 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import { IDoctor } from '../../../intefaces/doctorInterfaces';
 import SectionMenu from "../../features/SectionMenu/SectionMenu";
 import SectionItems from "../../features/SectionItems/SectionItems";
-import { useDoctors } from '../../context/DoctorsContext';
 import './CatalogPage.scss';
+import { ISearchOptions } from '../../../intefaces/commonInterfaces';
 
 interface FilterOptions {
     term: string;
@@ -27,20 +27,24 @@ const filterDoctorsBySearchOptions = (doctors: IDoctor[], options: FilterOptions
 };
 
 const CatalogPage: FC = () => {
-    const { doctors, searchOptions } = useDoctors();
-    const [filteredDoctors, setFilteredDoctors] = useState<IDoctor[]>(doctors);
-    const [visibleDoctors, setVisibleDoctors] = useState(10);
-
-    useEffect(() => {
-        const newFilteredDoctors = filterDoctorsBySearchOptions(doctors, searchOptions);
-        setFilteredDoctors(newFilteredDoctors);
-    }, [doctors, searchOptions]);
+    const [searchOptions, setSearchOptions] = useState<ISearchOptions>({ search: '', order_by: 'price', price_le: 0, rate_ge: 0, country: '' });
+    const [doctors, setDoctors] = useState<IDoctor[]>([])
 
     return (
-        <div className="catalog-page">
-            <SectionMenu />
-            <SectionItems doctors={filteredDoctors.slice(0, visibleDoctors)} />
-        </div>
+        <>
+            <SectionMenu
+                searchOptions={searchOptions}
+                setSearchOptions={setSearchOptions}
+                doctors={doctors}
+                setDoctors={setDoctors}
+            />
+            <SectionItems
+                searchOptions={searchOptions}
+                setSearchOptions={setSearchOptions}
+                doctors={doctors}
+                setDoctors={setDoctors}
+            />
+        </>
     );
 };
 

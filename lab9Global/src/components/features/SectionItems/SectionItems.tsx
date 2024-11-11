@@ -1,78 +1,114 @@
-import React, { FC, FormEvent, useState, useEffect } from 'react';
+import React, {Dispatch, FC, FormEvent, useCallback, useEffect, useRef, useState} from 'react';
 import './SectionItems.scss';
-import { defaultDoctor, IDoctor } from "../../../intefaces/doctorInterfaces";
+import {defaultDoctor, IDoctor} from "../../../intefaces/doctorInterfaces";
 import DoctorItem from "../../entities/DoctorItem/DoctorItem";
-import PopUpModalWindow from "../../common/PopUpModalWindow/PopUpModalWindow";
-import PopUpDoctorForm from '../../entities/PopUpDoctorForm/PopUpDoctorForm';
-import { SearchOptions, useDoctors } from '../../context/DoctorsContext';
+import PopUpDoctorForm from "../../entities/PopUpDoctorForm/PopUpDoctorForm";
+import DoctorServices from "../../../services/DoctorServices";
+import {ISearchOptions} from "../../../intefaces/commonInterfaces";
 
 interface SectionItemsProps {
+    searchOptions: ISearchOptions;
+    setSearchOptions: Dispatch<React.SetStateAction<ISearchOptions>>;
     doctors: IDoctor[];
+    setDoctors: Dispatch<React.SetStateAction<IDoctor[]>>;
 }
 
-const SectionItems: FC<SectionItemsProps> = ({ doctors }) => {
-    const { setDoctors, searchOptions, setSearchOptions } = useDoctors();
-    const [active, setActive] = useState(false);
+const SectionItems: FC<SectionItemsProps> = ({ searchOptions, setSearchOptions, doctors, setDoctors }) => {
+    const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+    const [totalPrice, setTotalPrice] = useState<number>(0);
     const [editedDoctor, setEditedDoctor] = useState<IDoctor>(defaultDoctor);
-    const [error, setError] = useState('');
-    const [visibleDoctors, setVisibleDoctors] = useState(3);
-    const [sortedDoctors, setSortedDoctors] = useState<IDoctor[]>(doctors);
+    const [active, setActive] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
+    const [visibleDoctors, setVisibleDoctors] = useState<number>(3);
+
+    const fetchTotalPrice = async (doctors: IDoctor[]) => {
+        const response = await DoctorServices.getSum(doctors.map(doctor => doctor.doctor_id));
+        const data = response.data as { total_price: number };
+        setTotalPrice(data.total_price);
+    }
+    const fetchDoctors = useCallback(async () => {
+        const response = await DoctorServices.getDoctors(searchOptions);
+        const data = response.data as IDoctor[];
+        setDoctors(data);
+        if (data.length > 0) await fetchTotalPrice(data);
+    }, [setDoctors, searchOptions])
 
     useEffect(() => {
-        let sorted = [...doctors];
-        if (searchOptions.sort === 'price') {
-            sorted.sort((a, b) => a.price - b.price);
-        } else if (searchOptions.sort === 'rating') {
-            sorted.sort((a, b) => b.rating - a.rating);
+        if (debounceTimeout.current) {
+            clearTimeout(debounceTimeout.current);
         }
-        setSortedDoctors(sorted);
-    }, [doctors, searchOptions.sort]);
 
-    const handleEditDoctor = (e: React.FormEvent) => {
+        debounceTimeout.current = setTimeout(() => {
+            fetchDoctors().then();
+        }, 500);
+
+        return () => {
+            if (debounceTimeout.current) {
+                clearTimeout(debounceTimeout.current);
+            }
+        };
+    }, [fetchDoctors]);
+
+    const handleEditedDoctor = async (e: FormEvent) => {
         e.preventDefault();
         if (!editedDoctor.name || !editedDoctor.description || !editedDoctor.price || !editedDoctor.picture) {
             setError('All fields are required');
             return;
         }
 
-        const updatedDoctors = doctors.map(doctor =>
-            doctor.doctor_id === editedDoctor.doctor_id ? editedDoctor : doctor
-        );
-        setDoctors(updatedDoctors);
+        const currentDate = new Date();
+        const isoDate = currentDate.toISOString();
+        const doctorToSend = {
+            ...editedDoctor,
+            updated_at: isoDate,
+        };
+        await DoctorServices.updateDoctor(doctorToSend);
+        fetchDoctors().then();
         setActive(false);
         setError('');
         setEditedDoctor(defaultDoctor);
-    };
+    }
 
-    const handleLoadMore = () => {
-        setVisibleDoctors(prevVisible => prevVisible + 3);
-    };
-
-    const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSearchOptions(prev => ({
-            ...prev,
-            sort: e.target.value as SearchOptions['sort']
-        }));
-    };
+    const loadMoreDoctors = () => {
+        setVisibleDoctors(prev => prev + 3);
+    }
 
     return (
         <section className="section-items">
-            <div className="sort">
-                <select
-                    name="sort" 
-                    id="sort" 
-                    onChange={handleSortChange}
-                    value={searchOptions.sort}
-                >
-                    <option value="">Sort by</option>
-                    <option value="price">Price</option>
-                    <option value="rating">Rating</option>
-                </select>
+            <div className="item-manager">
+                <div className="sort-div">
+                    <h1>Manage Doctors</h1>
+                    <form>
+                        <label htmlFor="sort"> Sort by: </label>
+                        <select className="sort-select" name="sort" id="sort" onChange={(e) => setSearchOptions(prev => ({
+                            ...prev,
+                            order_by: e.target.value
+                        }))}>
+                            <option value='price'>Price</option>
+                            <option value='name'>Name</option>
+                        </select>
+                    </form>
+                </div>
+                <hr />
+                <div className="count-div">
+                    <h2>Count price</h2>
+                    <form>
+                        <label>
+                            <output>Total:
+                                <span id="total_price">
+                                    {` ${totalPrice} $`}
+                                </span>
+                            </output>
+                        </label>
+                    </form>
+                </div>
             </div>
-            <div className="items">
-                {sortedDoctors.slice(0, visibleDoctors).map((doctor) => (
+
+            <div id="ItemsWrappper" className="items-wrapper">
+                {doctors.slice(0, visibleDoctors).map((doctor: IDoctor) => (
                     <DoctorItem
                         key={doctor.doctor_id}
+                        searchOptions={searchOptions}
                         doctor={doctor}
                         setDoctors={setDoctors}
                         setEditedDoctor={setEditedDoctor}
@@ -80,16 +116,15 @@ const SectionItems: FC<SectionItemsProps> = ({ doctors }) => {
                     />
                 ))}
             </div>
-            {visibleDoctors < sortedDoctors.length && (
-                <button className="load-more-btn" onClick={handleLoadMore}>
-                    <span className="load-more-text">Load More</span>
-                    <span className="load-more-icon">+</span>
-                </button>
+
+            {visibleDoctors < doctors.length && (
+                <button className="load-more-btn" onClick={loadMoreDoctors}>Load More</button>
             )}
+
             <PopUpDoctorForm
                 doctor={editedDoctor}
                 setDoctor={setEditedDoctor}
-                handleSubmit={handleEditDoctor}
+                handleSubmit={handleEditedDoctor}
                 error={error}
                 headText="Edit doctor"
                 active={active}

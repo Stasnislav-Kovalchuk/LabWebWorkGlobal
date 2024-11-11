@@ -7,6 +7,7 @@ export interface IDoctor {
     picture: string;
     location: string;
     rating: number;
+
 }
 
 export const defaultDoctor: IDoctor = {

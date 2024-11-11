@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { SearchOptions } from '../../context/DoctorsContext';
 import FilterSelector from '../FilterSelector/FilterSelector';
+import { ISearchOptions } from '../../../intefaces/commonInterfaces';
 
 interface FilterFormProps {
-  searchOptions: SearchOptions;
+  searchOptions: ISearchOptions;
   onFilterChange: (filterType: string, value: string | number) => void;
   onSearchChange: (value: string) => void;
 }
@@ -32,7 +32,7 @@ const FilterForm: FC<FilterFormProps> = ({ searchOptions, onFilterChange, onSear
           <input 
             placeholder="Type something..."
             onChange={(e) => onSearchChange(e.target.value)}
-            value={searchOptions.term}
+            value={searchOptions.search}
           />
         </label>
       </label>

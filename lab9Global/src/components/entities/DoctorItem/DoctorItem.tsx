@@ -1,16 +1,24 @@
-import React, {Dispatch, FC} from 'react';
+import React, {Dispatch, FC, useCallback} from 'react';
 import './DoctorItem.scss';
 import {IDoctor} from "../../../intefaces/doctorInterfaces";
 import {Link} from "react-router-dom";
+import DoctorServices from "../../../services/DoctorServices";
+import {ISearchOptions} from "../../../intefaces/commonInterfaces";
 
 interface DoctorItemProps {
+    searchOptions: ISearchOptions;
     doctor: IDoctor;
-    setDoctors: React.Dispatch<React.SetStateAction<IDoctor[]>>;
-    setEditedDoctor: React.Dispatch<React.SetStateAction<IDoctor>>;
-    setActive: React.Dispatch<React.SetStateAction<boolean>>;
+    setDoctors: Dispatch<React.SetStateAction<IDoctor[]>>;
+    setEditedDoctor: Dispatch<React.SetStateAction<IDoctor>>;
+    setActive: Dispatch<React.SetStateAction<boolean>>;
+
 }
 
-const DoctorItem: FC<DoctorItemProps> = ({doctor, setDoctors, setEditedDoctor, setActive}) => {
+const DoctorItem: FC<DoctorItemProps> = ({searchOptions, doctor, setDoctors, setEditedDoctor, setActive}) => {
+    const fetchDoctors = useCallback(async () => {
+        const { data } = await DoctorServices.getDoctors(searchOptions);
+        setDoctors(data as IDoctor[]);
+    }, [setDoctors, searchOptions])
 
     const timeSince = (date: string) => {
         const seconds = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
@@ -35,8 +43,7 @@ const DoctorItem: FC<DoctorItemProps> = ({doctor, setDoctors, setEditedDoctor, s
 
     const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-
-        setDoctors((prev) => prev.filter((d) => d.doctor_id !== doctor.doctor_id));
+        DoctorServices.deleteDoctor(doctor.doctor_id).then(() => fetchDoctors());
     }
 
     const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -56,7 +63,7 @@ const DoctorItem: FC<DoctorItemProps> = ({doctor, setDoctors, setEditedDoctor, s
             <div className="info">
                 <h3 className="h3">{doctor.name}</h3>
                 <h4 className="h6">{doctor.description}</h4>
-                <h5 className="h5">{doctor.updated_at ? timeSince(doctor.updated_at) : 'N/A'}</h5>
+                <h5 className="h5">{timeSince(doctor.updated_at)}</h5>
                 <h6 className="h6">{doctor.price} $</h6>
             </div>
             <div className="manage">

@@ -39,6 +39,11 @@ const PopUpDoctorForm: FC<PopUpDoctorFormProps> = ({doctor, setDoctor, handleSub
                     value={doctor.picture}
                     onChange={e => setDoctor({...doctor, picture: e.target.value})}
                 />
+                <FormInput
+                    label="Country"
+                    value={doctor.country || ''}
+                    onChange={e => setDoctor({...doctor, country: e.target.value})}
+                />
                 <span className='error'>{error}</span>
                 <button className={'blue-btn small'} type={'submit'}>Добавити</button>
             </form>

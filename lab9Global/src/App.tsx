@@ -5,11 +5,9 @@ import HomePage from "./components/pages/HomePage/HomePage";
 import CatalogPage from "./components/pages/CatalogPage/CatalogPage";
 import ItemPage from "./components/pages/ItemPage/ItemPage";
 import ServicePage from "./components/pages/ServicePage/ServicePage";
-import {DoctorsProvider} from "./components/context/DoctorsContext";
 
 function App() {
     return (
-        <DoctorsProvider>
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route
@@ -22,7 +20,6 @@ function App() {
 
                 </Route>
             </Routes>
-        </DoctorsProvider>
 
 
     );
