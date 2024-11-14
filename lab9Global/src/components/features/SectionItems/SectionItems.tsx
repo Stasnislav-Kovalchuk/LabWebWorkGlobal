@@ -20,17 +20,29 @@ const SectionItems: FC<SectionItemsProps> = ({ searchOptions, setSearchOptions, 
     const [active, setActive] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const [visibleDoctors, setVisibleDoctors] = useState<number>(3);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const fetchTotalPrice = async (doctors: IDoctor[]) => {
-        const response = await DoctorServices.getSum(doctors.map(doctor => doctor.doctor_id));
-        const data = response.data as { total_price: number };
-        setTotalPrice(data.total_price);
+        try {
+            const response = await DoctorServices.getSum(doctors.map(doctor => doctor.doctor_id));
+            const data = response.data as { total_price: number };
+            setTotalPrice(data.total_price);
+        } catch (error) {
+            console.error("Error fetching total price:", error);
+            setError("Failed to fetch total price");
+        }
     }
     const fetchDoctors = useCallback(async () => {
+        setLoading(true);
         const response = await DoctorServices.getDoctors(searchOptions);
         const data = response.data as IDoctor[];
         setDoctors(data);
-        if (data.length > 0) await fetchTotalPrice(data);
+        if (data.length > 0) {
+            await fetchTotalPrice(data);
+        } else {
+            setTotalPrice(0);
+        }
+        setLoading(false);
     }, [setDoctors, searchOptions])
 
     useEffect(() => {
@@ -48,6 +60,10 @@ const SectionItems: FC<SectionItemsProps> = ({ searchOptions, setSearchOptions, 
             }
         };
     }, [fetchDoctors]);
+
+    // useEffect(() => {
+    //     fetchTotalPrice(doctors);
+    // }, [doctors]);
 
     const handleEditedDoctor = async (e: FormEvent) => {
         e.preventDefault();
@@ -70,66 +86,76 @@ const SectionItems: FC<SectionItemsProps> = ({ searchOptions, setSearchOptions, 
     }
 
     const loadMoreDoctors = () => {
-        setVisibleDoctors(prev => prev + 3);
+        setLoading(true);
+        setTimeout(() => {
+            setVisibleDoctors(prev => prev + 3);
+            setLoading(false);
+        }, 1000);
     }
 
     return (
         <section className="section-items">
-            <div className="item-manager">
-                <div className="sort-div">
-                    <h1>Manage Doctors</h1>
-                    <form>
-                        <label htmlFor="sort"> Sort by: </label>
-                        <select className="sort-select" name="sort" id="sort" onChange={(e) => setSearchOptions(prev => ({
-                            ...prev,
-                            order_by: e.target.value
-                        }))}>
-                            <option value='price'>Price</option>
-                            <option value='name'>Name</option>
-                        </select>
-                    </form>
-                </div>
-                <hr />
-                <div className="count-div">
-                    <h2>Count price</h2>
-                    <form>
-                        <label>
-                            <output>Total:
-                                <span id="total_price">
-                                    {` ${totalPrice} $`}
-                                </span>
-                            </output>
-                        </label>
-                    </form>
-                </div>
-            </div>
+            {loading ? (
+                <div className="loader"></div>
+            ) : (
+                <>
+                    <div className="item-manager">
+                        <div className="sort-div">
+                            <h1>Manage Doctors</h1>
+                            <form>
+                                <label htmlFor="sort"> Sort by: </label>
+                                <select className="sort-select" name="sort" id="sort" onChange={(e) => setSearchOptions(prev => ({
+                                    ...prev,
+                                    order_by: e.target.value
+                                }))}>
+                                    <option value='price'>Price</option>
+                                    <option value='name'>Name</option>
+                                </select>
+                            </form>
+                        </div>
+                        <hr />
+                        <div className="count-div">
+                            <h2>Count price</h2>
+                            <form>
+                                <label>
+                                    <output>Total:
+                                        <span id="total_price">
+                                            {` ${totalPrice} $`}
+                                        </span>
+                                    </output>
+                                </label>
+                            </form>
+                        </div>
+                    </div>
 
-            <div id="ItemsWrappper" className="items-wrapper">
-                {doctors.slice(0, visibleDoctors).map((doctor: IDoctor) => (
-                    <DoctorItem
-                        key={doctor.doctor_id}
-                        searchOptions={searchOptions}
-                        doctor={doctor}
-                        setDoctors={setDoctors}
-                        setEditedDoctor={setEditedDoctor}
+                    <div id="ItemsWrappper" className="items-wrapper">
+                        {doctors.slice(0, visibleDoctors).map((doctor: IDoctor) => (
+                            <DoctorItem
+                                key={doctor.doctor_id}
+                                searchOptions={searchOptions}
+                                doctor={doctor}
+                                setDoctors={setDoctors}
+                                setEditedDoctor={setEditedDoctor}
+                                setActive={setActive}
+                            />
+                        ))}
+                    </div>
+
+                    {visibleDoctors < doctors.length && (
+                        <button className="load-more-btn" onClick={loadMoreDoctors}>Load More</button>
+                    )}
+
+                    <PopUpDoctorForm
+                        doctor={editedDoctor}
+                        setDoctor={setEditedDoctor}
+                        handleSubmit={handleEditedDoctor}
+                        error={error}
+                        headText="Edit doctor"
+                        active={active}
                         setActive={setActive}
                     />
-                ))}
-            </div>
-
-            {visibleDoctors < doctors.length && (
-                <button className="load-more-btn" onClick={loadMoreDoctors}>Load More</button>
+                </>
             )}
-
-            <PopUpDoctorForm
-                doctor={editedDoctor}
-                setDoctor={setEditedDoctor}
-                handleSubmit={handleEditedDoctor}
-                error={error}
-                headText="Edit doctor"
-                active={active}
-                setActive={setActive}
-            />
         </section>
     );
 };
