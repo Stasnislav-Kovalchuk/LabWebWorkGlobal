@@ -1,0 +1,121 @@
+.section-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 75px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.create {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.create-button {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 25px;
+  border-radius: 8px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.create-button:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.total-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.search-menu {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+}
+
+.filter-form {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.filter-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.filter-form select, .filter-form input {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background-color: white;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-form select:focus, .filter-form input:focus {
+  border-color: #007bff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.input-buttons-menu input {
+  width: 220px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+@media screen and (max-width: 1100px) {
+  .section-menu {
+    padding: 0 5% 20px;
+  }
+  
+  .filter-form {
+    justify-content: center;
+  }
+
+  .input-buttons-menu input {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .section-menu {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .create {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-menu {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .input-buttons-menu input {
+    width: 100%;
+  }
+}
