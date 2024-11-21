@@ -13,7 +13,7 @@ const Header: FC = () => {
                 <Link to="/" className={`h6 ${location.pathname === '/' ? 'active' : ''}`}>Home</Link>
                 <Link to="/catalog" className={`h6 ${location.pathname === '/catalog' ? 'active' : ''}`}>Find a
                     doctor</Link>
-                <a href="/" className={`h6 ${location.pathname === '/apps' ? 'active' : ''}`}>Apps</a>
+                <Link to="/cart" className={`h6 ${location.pathname === '/cart' ? 'active' : ''}`}>Cart</Link>
                 <a href="/" className={`h6 ${location.pathname === '/testimonials' ? 'active' : ''}`}>Testimonials</a>
                 <a href="/" className={`h6 ${location.pathname === '/about' ? 'active' : ''}`}>About us</a>
             </nav>
@@ -31,7 +31,7 @@ const Header: FC = () => {
                             <li>Find a doctor</li>
                         </a>
                         <a href="/">
-                            <li>Apps</li>
+                            <li>Cart</li>
                         </a>
                         <a href="/">
                             <li>Testimonials</li>

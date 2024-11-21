@@ -1,3 +1,5 @@
+import { IDoctor } from './doctorInterfaces'; // Додайте правильний шлях до файлу
+
 export interface ISearchOptions {
     search: string,
     price_le: number,
@@ -14,3 +16,18 @@ export interface IArticle {
 }    
 
 
+
+export const defaultSearchOptions: ISearchOptions = {
+    search: '',
+    price_le: 0,
+    country: '',
+    rate_ge: 0,
+    order_by: 'price',
+}
+
+export interface ICart {
+    id: number,
+    doctor: IDoctor,
+    doctor_type: string,
+    quantity: number
+}

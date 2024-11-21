@@ -18,6 +18,8 @@ interface Service {
 const ServicePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [service, setService] = useState<Service | null>(null);
+  const [showForm, setShowForm] = useState<boolean>(false);
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
 
   useEffect(() => {
     const foundService = servicesData.find(s => s.id === Number(id));
@@ -25,6 +27,16 @@ const ServicePage: React.FC = () => {
       setService(foundService);
     }
   }, [id]);
+
+  const handleBookClick = () => {
+    setShowForm(true);
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Phone number submitted:', phoneNumber);
+    setShowForm(false);
+  };
 
   if (!service) {
     return <div className="service-page">Сервіс не знайдено</div>;
@@ -54,9 +66,28 @@ const ServicePage: React.FC = () => {
       </div>
       <div className="price">{service.price} грн</div>
       <div className="action-buttons">
-        <button className="book">Записатися</button>
+        <button className="book" onClick={handleBookClick}>Записатися</button>
         <button className="contact">Зв'язатися з нами</button>
       </div>
+
+      {showForm && (
+        <div className="booking-form-popup">
+          <form onSubmit={handleFormSubmit}>
+            <label>
+              Введіть номер телефону:
+              <input
+                type="tel"
+                placeholder="Ваш номер телефону"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                required
+              />
+            </label>
+            <button type="submit">Відправити</button>
+            <button type="button" onClick={() => setShowForm(false)}>Закрити</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
