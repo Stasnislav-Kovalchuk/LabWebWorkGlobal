@@ -1,0 +1,124 @@
+.first-screen {
+  position: relative;
+  padding: 0 calc(2 * var(--contpadding)) 0 var(--contpadding);
+  // min-height: calc(100svh - var(--header-h));
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .btn{
+    display: inline-block;        
+    cursor: pointer;               
+    border-radius: 55px;          
+    background: #458FF6;          
+    border: none;                 
+    width: 200px;                  
+    height: 60px;                  
+    line-height: 60px;            
+    text-align: center;           
+    font-weight: 650;              
+    color: #ffffff;                
+    font-size: 18px;               
+    text-decoration: none;         
+    transition: all 0.3s ease-in-out;
+  }
+
+  .info {
+    // width: 30%;
+    height: 70%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 30px;
+
+    a {
+      img {
+        margin-left: 4px;
+      }
+    }
+
+    div {
+      width: 56px;
+      height: 2px;
+      background-color: var(--black);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      max-width: 450px;
+      font-size: 48px;
+      font-family: Mulish;
+      font-weight: 650;
+      line-height: 116%;
+      color: #0B132A;
+      transform: translateX(-60svh);
+      opacity: 0;
+    }
+
+    h3 {
+      margin-bottom: 50px;
+      max-width: 450px;
+      font-size: 21px;
+      font-family: Mulish;
+      font-style: normal;
+      font-weight: 300;
+      color: #7D7987;
+      letter-spacing: 1.5px;
+      line-height: 152%;
+    }
+  }
+
+  .img-container {
+    opacity: 0;
+    position: relative;
+    width: 50%;
+    aspect-ratio: 1.53;
+    background-size: contain;
+    transform: translateX(50svw);
+
+    img {
+      // width: 45%;
+      height: auto;
+      max-width: 760px;
+    }
+  }
+
+  @media (max-width: 878px) {
+    padding: 0 var(--contpadding);
+    flex-direction: column;
+    align-items: center;
+
+    .info {
+      justify-content: space-evenly;
+      align-items: center;
+      width: 80%;
+      height: 100%;
+
+      div {
+        width: 80%;
+      }
+
+      h2 {
+        text-align: center;
+      }
+    }
+
+    .img-container {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.3;
+      top: 0;
+      transform: none;
+      width: 80%;
+    }
+  }
+
+  @media (max-width: 565px) {
+    .img-container {
+      width: 100%;
+    }
+  }
+}

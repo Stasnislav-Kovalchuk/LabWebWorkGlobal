@@ -1,0 +1,134 @@
+// CartPage.scss
+
+.cart {
+  min-height: calc(100vh - var(--header-h));
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f9f9f9;
+
+  h1 {
+      text-align: center;
+  }
+
+  .carts-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+  }
+
+  .item {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 280px;
+      text-align: center;
+      overflow: hidden;
+      padding: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .avatar {
+          width: 100%;
+          height: 150px;
+          background-size: cover;
+          background-position: center;
+          border-radius: 10px;
+          margin-bottom: 15px;
+      }
+
+      .info {
+          text-align: left;
+          margin-bottom: 15px;
+
+          h3 {
+              font-size: 1.2em;
+              font-weight: 600;
+              color: #333;
+          }
+
+          h4 {
+              font-size: 1em;
+              font-weight: 400;
+              color: #777;
+          }
+
+          h5, h6 {
+              font-size: 0.9em;
+              color: #444;
+          }
+      }
+
+      .manage {
+          margin-top: 10px;
+
+          .remove-doctor {
+              background-color: #ff6f61;
+              border: none;
+              color: #fff;
+              padding: 10px 15px;
+              border-radius: 8px;
+              cursor: pointer;
+              font-size: 1em;
+              transition: background-color 0.3s ease;
+
+              &:hover {
+                  background-color: #ff4c3b;
+              }
+          }
+      }
+  }
+
+  .loader {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #555;
+      text-align: center;
+  }
+
+  .order-button {
+      margin-top: auto; /* Відсовує кнопку донизу контейнера */
+      display: block;
+      width: fit-content;
+      padding: 12px 20px;
+      background: linear-gradient(45deg, #28a745, #218838);
+      color: white;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      text-decoration: none;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      transition: box-shadow 0.3s ease;
+
+      &:hover {
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+  }
+
+  .go-to-catalog {
+      background: linear-gradient(45deg, #007bff, #0056b3);
+      padding: 12px 20px;
+      color: #fff;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1em;
+      font-weight: bold;
+      text-decoration: none;
+      display: block;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      transition: transform 0.3s ease;
+
+      &:hover {
+          transform: scale(1.05);
+      }
+  }
+}

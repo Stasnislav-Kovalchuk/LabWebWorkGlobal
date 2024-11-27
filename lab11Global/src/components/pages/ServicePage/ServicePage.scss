@@ -1,0 +1,201 @@
+.service-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  .service-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+
+  .description {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #34495e;
+    margin-bottom: 30px;
+  }
+
+  .details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+
+    .detail-item {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 16px;
+        color: #7f8c8d;
+      }
+    }
+  }
+
+  .price {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2ecc71;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+
+    button {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &.book {
+        background-color: #3498db;
+        color: white;
+
+        &:hover {
+          background-color: #2980b9;
+          transform: translateY(-3px);
+          box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+      }
+
+      &.contact {
+        background-color: #e74c3c;
+        color: white;
+
+        &:hover {
+          background-color: #c0392b;
+          transform: translateY(-3px);
+          box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .service-page {
+    padding: 30px 15px;
+
+    .service-image {
+      height: 200px;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    .description {
+      font-size: 16px;
+    }
+
+    .details {
+      grid-template-columns: 1fr;
+    }
+
+    .price {
+      font-size: 24px;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+  }
+}
+
+
+
+
+
+.booking-form-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.booking-form-popup form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.booking-form-popup form label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.booking-form-popup form input[type="tel"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+      border-color: #007bff;
+      outline: none;
+  }
+}
+
+.booking-form-popup form button {
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+      background-color: #0056b3;
+  }
+}

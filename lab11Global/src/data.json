@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Dr. John Doe",
+    "description": "Experienced cardiologist",
+    "updated_at": "2023-05-15",
+    "price": 150,
+    "picture": "https://img.freepik.com/free-photo/portrait-smiling-young-woman-doctor-healthcare-medical-worker-pointing-fingers-left-showing-clinic-advertisement_1258-88108.jpg",
+    "location": "Ukraine",
+    "rating": 3,
+    "doctor_id": 1
+  },
+  {
+    "name": "Dr. Jane Smith",
+    "description": "Skilled pediatrician",
+    "updated_at": "2023-05-14",
+    "price": 120,
+    "picture": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+    "location": "Poland",
+    "rating": 4,
+    "doctor_id": 2
+  },
+  {
+    "name": "Dr. Taras3 Ivanenko",
+    "description": "Trusted family physician delivering quality healthcare for individuals of all ages.",
+    "updated_at": "2024-10-22T15:03:00Z",
+    "price": 130,
+    "picture": "https://img.freepik.com/free-photo/surprised-young-doctor-with-medical-glasses-wearing-medical-robe-with-stethoscope_141793-80859.jpg?t=st=1729583956~exp=1729587556~hmac=1796ec78212f725baac733e6ce2d808c3d8f5da8062db7d452639fe92b41d3f1&w=1480",
+    "location": "Poland",
+    "rating": 2,
+    "doctor_id": 4
+  },
+  {
+    "name": "Dr. Viktoria4 Bondar",
+    "description": "Cardiologist known for her work in managing heart-related conditions and patient education.",
+    "updated_at": "2024-10-22T15:01:00Z",
+    "price": 180,
+    "picture": "https://img.freepik.com/free-photo/smiling-young-female-doctor-wearing-medical-robe-stethoscope-with-glasses-holding-out-hand-isolated_141793-68795.jpg?t=st=1729583973~exp=1729587573~hmac=ced1117b087ceb5de243751dad5ac2fbe36db4ab0b0b86b515badb1b9e4bf88a&w=1480",
+    "location": "Poland",
+    "rating": 1,
+    "doctor_id": 5
+  },
+  {
+    "name": "Dr. Pavlo 5Khomenko",
+    "description": "Family physician offering comprehensive healthcare with a personal touch.",
+    "updated_at": "2024-10-22T14:58:00Z",
+    "price": 130,
+    "picture": "https://img.freepik.com/free-photo/young-handsome-doctor-wearing-white-medical-gown-white-medical-gloves-stethoscope-looking-thoughtfully-standing-orange-wall_141793-30631.jpg?t=st=1729583989~exp=1729587589~hmac=217f0f12c454fa8070e7f34b6f64a753bb23bafb3e1a8bcec950d82351f2a119&w=1480",
+    "location": "Poland",
+    "rating": 1,
+    "doctor_id": 6
+  },
+  {
+    "name": "Dr. Yuliya 6Kravchenko",
+    "description": "Specialist in cardiology with a strong background in diagnostic procedures and patient care.",
+    "updated_at": "2024-10-22T14:55:00Z",
+    "price": 130,
+    "picture": "https://img.freepik.com/free-photo/looking-up-sad-young-bald-male-doctor-wearing-medical-robe-stethoscope-holding-hands-together-isolated-blue-background_141793-63247.jpg?t=st=1729584034~exp=1729587634~hmac=1341f6f9b1691baed104c6ac8d29c9c1effa4b4270caaf89c8fa84f608501e0b&w=1480",
+    "location": "Poland",
+    "rating": 4,
+    "doctor_id": 7
+  },
+  {
+    "name": "Dr. Nataliya 7Shevchenko",
+    "description": "Experienced neurologist specializing in brain and nervous system disorders.",
+    "updated_at": "2024-10-22T14:50:00Z",
+    "price": 160,
+    "picture": "https://img.freepik.com/free-photo/portrait-smiling-young-woman-doctor-healthcare-medical-worker-pointing-fingers-left-showing-clinic-advertisement_1258-88108.jpg",
+    "location": "USA",
+    "rating": 2,
+    "doctor_id": 8
+  },
+  {
+    "name": "Dr. Andriy 8Kovalchuk",
+    "description": "Orthopedic surgeon with expertise in joint replacement and sports injuries.",
+    "updated_at": "2024-10-22T14:45:00Z",
+    "price": 170,
+    "picture": "https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg",
+    "location": "Ukraine",
+    "rating": 1,
+    "doctor_id": 9
+  },
+  {
+    "name": "Dr. Olga 9Melnyk",
+    "description": "Dermatologist specializing in skin health and cosmetic procedures.",
+    "updated_at": "2024-10-22T14:40:00Z",
+    "price": 140,
+    "picture": "https://img.freepik.com/free-photo/woman-doctor-wearing-lab-coat-with-stethoscope-isolated_1303-29791.jpg",
+    "location": "Ukraine",
+    "rating": 2,
+    "doctor_id": 10
+  }
+]
