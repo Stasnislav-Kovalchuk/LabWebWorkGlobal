@@ -5,11 +5,23 @@ import 'react-phone-input-2/lib/style.css';
 import PhoneInput from 'react-phone-input-2';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './OrderPage.scss';
+import * as Yup from 'yup';
+import { getCarts } from '../../../store/carts.slice'; 
+import CartServices from '../../../services/CartServices';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../store';
+import { ICart } from '../../../intefaces/commonInterfaces';
+
 
 const OrderPage = () => {
+    const {
+        carts
+    } = useSelector((state: RootState) => state.cartsReducer)
+    const dispatch = useDispatch<AppDispatch>();
     const location = useLocation();
     const navigate = useNavigate();
-    const selectedDoctors = location.state?.selectedDoctors || [];
+    // const selectedDoctors = location.state?.selectedDoctors || [];
 
     const toBase64 = (str: string): string => {
         return window.btoa(unescape(encodeURIComponent(str)));
@@ -30,6 +42,7 @@ const OrderPage = () => {
     const API_KEY = '4b43b81dfa23afae2dbf44851510a110'; // API Нової Пошти
     const LIQPAY_PUBLIC_KEY = 'sandbox_i1180960224'; // Ваш LiqPay Public Key
     const LIQPAY_PRIVATE_KEY = 'sandbox_XysjrvqzETT1mDbWisgJCbUYm1mgh7x2NRJhIa2W'; // Ваш LiqPay Private Key
+
 
     useEffect(() => {
         axios
@@ -64,7 +77,14 @@ const OrderPage = () => {
                 })
                 .then((response: any) => {
                     if (response.data.success) {
-                        setWarehouses(response.data.data);
+                        // Check if data is different before updating state
+                        setWarehouses(prevWarehouses => {
+                            // Compare previous data with new data (you can improve this comparison logic)
+                            if (JSON.stringify(prevWarehouses) !== JSON.stringify(response.data.data)) {
+                                return response.data.data;
+                            }
+                            return prevWarehouses;  // No update if data is the same
+                        });
                     } else {
                         console.error('Error fetching warehouses:', response.data.errors);
                     }
@@ -74,59 +94,55 @@ const OrderPage = () => {
                 });
         }
     }, [selectedCity]);
+    
+    
 
     const handleInputChange = (name: string, value: string) => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const validateForm = () => {
-        const { name, email, phone, paymentType, deliveryType } = formData;
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const validationSchema = Yup.object().shape({
+        name: Yup.string()
+            .min(3, 'Name must be at least 3 characters long.')
+            .max(50, 'Name cannot exceed 50 characters.')
+            .required('Name is required.'),
+        email: Yup.string()
+            .email('Please enter a valid email address.')
+            .required('Email is required.'),
+        phone: Yup.string()
+            .min(12, 'Please enter a valid phone number.')
+            .required('Phone number is required.'),
+        paymentType: Yup.string().required('Please select a payment type.'),
+        deliveryType: Yup.string().required('Please select a delivery type.'),
+        selectedCity: Yup.string().required('Please select a city.'),
+        selectedWarehouse: Yup.string().required('Please select a warehouse.'),
+    });
 
-        if (!name.trim() || name.length < 3 || name.length > 50) {
-            alert('Name must be 3-50 characters long.');
-            return false;
-        }
-
-        if (!emailPattern.test(email)) {
-            alert('Please enter a valid email address.');
-            return false;
-        }
-
-        if (!phone.trim() || phone.length < 12) {
-            alert('Please enter a valid phone number.');
-            return false;
-        }
-
-        if (!selectedCity) {
-            alert('Please select a city.');
-            return false;
-        }
-
-        if (!selectedWarehouse) {
-            alert('Please select a warehouse.');
-            return false;
-        }
-
-        if (!deliveryType) {
-            alert('Please select a delivery type.');
-            return false;
-        }
-
-        if (!paymentType) {
-            alert('Please select a payment type.');
-            return false;
-        }
-
-        return true;
-    };
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (validateForm()) {
+        try {
+            await validationSchema.validate({ ...formData, selectedCity, selectedWarehouse }, { abortEarly: false });
             console.log('Form Data:', { ...formData, selectedCity, selectedWarehouse });
             alert('Order submitted successfully!');
+
+            try {
+                console.log('Clearing cart...');
+                await CartServices.clearCart();
+                console.log('Cart cleared, dispatching getCarts...');
+                dispatch(getCarts());
+                console.log('getCarts dispatched');
+            } catch (error) {
+                console.error('Error clearing cart:', error);
+                alert('Failed to clear cart. Please try again.');
+            }
+
             navigate('/thank-you');
+        } catch (validationErrors) {
+            if (validationErrors instanceof Yup.ValidationError) {
+                validationErrors.inner.forEach((error) => {
+                    alert(error.message);
+                });
+            }
         }
     };
 
@@ -176,9 +192,9 @@ const OrderPage = () => {
             <div className="selected-doctors">
                 <h2>Your Selected Doctors</h2>
                 <ul>
-                    {selectedDoctors.map((doctor: any) => (
-                        <li key={doctor.id}>
-                            {doctor.doctor.name} - <strong>{doctor.doctor.price} UAH</strong>
+                    {carts?.map((cart:ICart) => (
+                        <li key={cart.id}>
+                            {cart.doctor.name} - <strong>{cart.doctor.price} UAH</strong>
                         </li>
                     ))}
                 </ul>
@@ -186,7 +202,7 @@ const OrderPage = () => {
 
             <form onSubmit={handleSubmit} noValidate>
                 <div className="form-group">
-                    <label htmlFor="name">Full Name</label>
+                    <label htmlFor="name">Ім'я ну і Прізвище</label>
                     <input
                         id="name"
                         name="name"
@@ -198,7 +214,7 @@ const OrderPage = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="email">Email Address</label>
+                    <label htmlFor="email">Напиши пошту щоб ми тоб розсилку кидали</label>
                     <input
                         id="email"
                         name="email"

@@ -16,4 +16,8 @@ export default class CartServices {
         return $api.delete(`/cart/${item_index}`);
     }
 
+    static async clearCart(): Promise<any> {
+        return $api.get('/cart/clear');
+    }
+
 }
