@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import CryptoJS from 'crypto-js';
-import 'react-phone-input-2/lib/style.css';
-import PhoneInput from 'react-phone-input-2';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './OrderPage.scss';
 import * as Yup from 'yup';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+import './OrderPage.scss';
 import { getCarts } from '../../../store/carts.slice'; 
 import CartServices from '../../../services/CartServices';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../store';
 import { ICart } from '../../../intefaces/commonInterfaces';
 
+// Імпортуємо функції для API
+import { fetchCities, fetchWarehouses } from '../../../components/api/api';
+// Імпортуємо функцію для ініціалізації LiqPay
+import { initiateLiqPayPayment } from '../../../components/api/liqpay';
 
 const OrderPage = () => {
     const {
         carts
-    } = useSelector((state: RootState) => state.cartsReducer)
+    } = useSelector((state: RootState) => state.cartsReducer);
     const dispatch = useDispatch<AppDispatch>();
+    
     const location = useLocation();
     const navigate = useNavigate();
-    // const selectedDoctors = location.state?.selectedDoctors || [];
 
     const toBase64 = (str: string): string => {
         return window.btoa(unescape(encodeURIComponent(str)));
@@ -39,63 +40,31 @@ const OrderPage = () => {
         deliveryType: '',
     });
 
-    const API_KEY = '4b43b81dfa23afae2dbf44851510a110'; // API Нової Пошти
-    const LIQPAY_PUBLIC_KEY = 'sandbox_i1180960224'; // Ваш LiqPay Public Key
-    const LIQPAY_PRIVATE_KEY = 'sandbox_XysjrvqzETT1mDbWisgJCbUYm1mgh7x2NRJhIa2W'; // Ваш LiqPay Private Key
-
-
     useEffect(() => {
-        axios
-            .post('https://api.novaposhta.ua/v2.0/json/', {
-                apiKey: API_KEY,
-                modelName: 'Address',
-                calledMethod: 'getCities',
-                methodProperties: {},
-            })
-            .then((response: any) => {
-                if (response.data.success) {
-                    setCities(response.data.data);
-                } else {
-                    console.error('Error fetching cities:', response.data.errors);
-                }
-            })
-            .catch((error) => {
+        const loadCities = async () => {
+            try {
+                const citiesData = await fetchCities();
+                setCities(citiesData);
+            } catch (error) {
                 console.error('Error fetching cities:', error);
-            });
+            }
+        };
+        loadCities();
     }, []);
 
     useEffect(() => {
         if (selectedCity) {
-            axios
-                .post('https://api.novaposhta.ua/v2.0/json/', {
-                    apiKey: API_KEY,
-                    modelName: 'Address',
-                    calledMethod: 'getWarehouses',
-                    methodProperties: {
-                        CityRef: selectedCity,
-                    },
-                })
-                .then((response: any) => {
-                    if (response.data.success) {
-                        // Check if data is different before updating state
-                        setWarehouses(prevWarehouses => {
-                            // Compare previous data with new data (you can improve this comparison logic)
-                            if (JSON.stringify(prevWarehouses) !== JSON.stringify(response.data.data)) {
-                                return response.data.data;
-                            }
-                            return prevWarehouses;  // No update if data is the same
-                        });
-                    } else {
-                        console.error('Error fetching warehouses:', response.data.errors);
-                    }
-                })
-                .catch((error) => {
+            const loadWarehouses = async () => {
+                try {
+                    const warehousesData = await fetchWarehouses(selectedCity);
+                    setWarehouses(warehousesData);
+                } catch (error) {
                     console.error('Error fetching warehouses:', error);
-                });
+                }
+            };
+            loadWarehouses();
         }
     }, [selectedCity]);
-    
-    
 
     const handleInputChange = (name: string, value: string) => {
         setFormData({ ...formData, [name]: value });
@@ -108,6 +77,10 @@ const OrderPage = () => {
             .required('Name is required.'),
         email: Yup.string()
             .email('Please enter a valid email address.')
+            .matches(
+                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                'Invalid email address'
+            )          
             .required('Email is required.'),
         phone: Yup.string()
             .min(12, 'Please enter a valid phone number.')
@@ -147,42 +120,8 @@ const OrderPage = () => {
     };
 
     const handleLiqPayPayment = () => {
-        const paymentData = {
-            public_key: LIQPAY_PUBLIC_KEY,
-            version: '3',
-            action: 'pay',
-            amount: '1000', // Сума оплати
-            currency: 'UAH',
-            description: 'Оплата за лікарів',
-            order_id: `order_${Date.now()}`,
-            sandbox: '1',
-        };
-
-        const base64Data = toBase64(JSON.stringify(paymentData));
-        const signature = CryptoJS.enc.Base64.stringify(
-            CryptoJS.SHA1(LIQPAY_PRIVATE_KEY + base64Data + LIQPAY_PRIVATE_KEY)
-        );
-
-        const form = document.createElement('form');
-        form.action = 'https://www.liqpay.ua/api/3/checkout';
-        form.method = 'POST';
-        form.target = '_blank';
-
-        const dataInput = document.createElement('input');
-        dataInput.type = 'hidden';
-        dataInput.name = 'data';
-        dataInput.value = base64Data;
-
-        const signatureInput = document.createElement('input');
-        signatureInput.type = 'hidden';
-        signatureInput.name = 'signature';
-        signatureInput.value = signature;
-
-        form.appendChild(dataInput);
-        form.appendChild(signatureInput);
-        document.body.appendChild(form);
-        form.submit();
-        form.remove();
+        // Викликаємо функцію для ініціалізації LiqPay
+        initiateLiqPayPayment(1000, 'Оплата за лікарів');
     };
 
     return (
